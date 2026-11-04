@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Campaign Museum</title>
+<meta name="description" content="An interactive digital exhibition analysing ten iconic marketing campaigns through five lenses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500&family=Inter:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f3ef;
+    --paper-alt: #eceae4;
+    --ink: #121212;
+    --muted: #57524a;
+    --line: #d7d2c9;
+    --line-strong: #b7b1a5;
+    --accent: #c2185b;
+    --display: "Bodoni Moda", "Times New Roman", serif;
+    --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+    --caps: "Jost", "Helvetica Neue", Arial, sans-serif;
+    --pad: clamp(20px, 5vw, 72px);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    font-family: var(--sans);
+    font-weight: 300;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 820px at 0% 0%, rgba(194, 24, 91, 0.07), transparent 62%),
+      radial-gradient(1100px 760px at 100% 100%, rgba(194, 24, 91, 0.06), transparent 62%),
+      radial-gradient(900px 520px at 100% 0%, rgba(194, 24, 91, 0.04), transparent 60%),
+      var(--paper);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: rgba(194, 24, 91, 0.16); color: var(--ink); }
+
+  /* ---------- shared type ---------- */
+  .eyebrow {
+    font-family: var(--caps);
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .display {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 9vw, 7rem);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .display-sm {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2rem, 5.5vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--line-strong);
+    border: 0;
+    margin: 0;
+  }
+
+  /* ---------- app shell ---------- */
+  .screen { display: none; }
+  .screen.is-active { display: block; animation: fade 0.6s ease both; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+  .wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 var(--pad) 96px;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 26px var(--pad) 18px;
+    border-bottom: 1px solid var(--line-strong);
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .masthead__brand {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .masthead__meta {
+    font-family: var(--caps);
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    appearance: none;
+    cursor: pointer;
+    font-family: var(--caps);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 18px 40px;
+    transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  }
+  .btn:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+  .btn:active { background: var(--ink); color: var(--paper); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+  .btn--line {
+    background: transparent;
+    color: var(--ink);
+  }
+  .btn--line:hover { background: var(--ink); color: var(--paper); }
+
+  .link {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--caps);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 4px;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .link:hover { border-color: var(--accent); color: var(--accent); }
+  .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .link:disabled { color: var(--line-strong); border-color: transparent; cursor: default; }
+
+  /* ---------- landing ---------- */
+  .landing {
+    text-align: center;
+    padding: clamp(60px, 14vh, 150px) 0 60px;
+  }
+  .landing .display { margin: 26px 0 30px; }
+  .landing .rule { max-width: 220px; margin: 0 auto 30px; }
+  .landing__tagline {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+    color: var(--muted);
+    max-width: 30ch;
+    margin: 0 auto 46px;
+    line-height: 1.5;
+  }
+  .landing__facts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px 40px;
+    list-style: none;
+    margin: 72px 0 0;
+    padding: 26px 0 0;
+    border-top: 1px solid var(--line);
+  }
+  .landing__facts li {
+    font-family: var(--caps);
+    font-size: 0.64rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- exhibition header ---------- */
+  .exhibit__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 0 14px;
+  }
+  .counter {
+    font-family: var(--caps);
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .progress {
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 18px;
+  }
+  .progress__fill {
+    height: 1px;
+    width: 10%;
+    background: var(--accent);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .ticks {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 54px;
+  }
+  .tick {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+  .tick:hover { border-color: var(--ink); transform: scale(1.3); }
+  .tick:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .tick.is-done { background: rgba(194, 24, 91, 0.35); border-color: rgba(194, 24, 91, 0.35); }
+  .tick.is-current { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
+
+  /* ---------- exhibit body ---------- */
+  .exhibit__inner { animation: rise 0.55s ease both; }
+  .exhibit__inner.from-right { animation-name: rise-right; }
+  .exhibit__inner.from-left { animation-name: rise-left; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes rise-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+  @keyframes rise-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+
+  .exhibit__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .exhibit__head .eyebrow { margin-bottom: 14px; }
+  .exhibit__year {
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .exhibit__media {
+    margin: 42px 0 0;
+  }
+  .exhibit__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--paper-alt);
+  }
+  .exhibit__caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    margin-top: 14px;
+    font-family: var(--caps);
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .exhibit__lede {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.35rem, 3vw, 2.15rem);
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    max-width: 34ch;
+    margin: clamp(48px, 8vw, 90px) auto 0;
+    text-align: center;
+  }
+
+  /* ---------- five lenses ---------- */
+  .lenses {
+    margin-top: clamp(60px, 9vw, 110px);
+    border-top: 1px solid var(--line-strong);
+  }
+  .lens {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    padding: 34px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .lens__label {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .lens__no {
+    font-family: var(--caps);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .lens__name {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin: 0;
+  }
+  .lens__text {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  /* ---------- takeaway ---------- */
+  .takeaway {
+    margin-top: clamp(60px, 9vw, 110px);
+    padding: clamp(40px, 7vw, 72px) 0;
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    text-align: center;
+  }
+  .takeaway .eyebrow { margin-bottom: 22px; color: var(--accent); }
+  .takeaway p {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(1.3rem, 3.2vw, 2.2rem);
+    line-height: 1.4;
+    max-width: 30ch;
+    margin: 0 auto;
+  }
+
+  /* ---------- pager ---------- */
+  .pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 64px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .pager__side { min-width: 120px; }
+  .pager__side--end { text-align: right; }
+
+  /* ---------- exit ---------- */
+  .exit {
+    text-align: center;
+    padding: clamp(64px, 16vh, 160px) 0 40px;
+  }
+  .exit .display { max-width: 18ch; margin: 26px auto 30px; }
+  .exit .rule { max-width: 220px; margin: 0 auto 30px; }
+  .exit__tagline {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+    color: var(--muted);
+    max-width: 34ch;
+    margin: 0 auto 54px;
+    line-height: 1.5;
+  }
+  .exit__stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 48px;
+    margin: 0 0 60px;
+    padding: 34px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .exit__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 140px;
+  }
+  .exit__stat strong {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .exit__stat span {
+    font-family: var(--caps);
+    font-size: 0.64rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- loader ---------- */
+  #loader {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    place-items: center;
+    background: var(--paper);
+    text-align: center;
+  }
+  #loader.is-active { display: grid; animation: fade 0.4s ease both; }
+  .loader__title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    margin: 0 0 30px;
+  }
+  .loader__line {
+    width: min(300px, 62vw);
+    height: 1px;
+    margin: 0 auto;
+    background: var(--line);
+    overflow: hidden;
+  }
+  .loader__line span {
+    display: block;
+    height: 1px;
+    width: 0;
+    background: var(--accent);
+    animation: load 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes load { to { width: 100%; } }
+  .loader__text {
+    font-family: var(--caps);
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 22px;
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 760px) {
+    .lens { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+    .exhibit__head { flex-direction: column; align-items: flex-start; }
+    .landing__facts { gap: 12px 26px; }
+    .exit__stats { gap: 30px; }
+    .masthead__meta { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="masthead__brand" href="#" id="brandHome">The Campaign Museum</a>
+  <span class="masthead__meta">Issue 01 &nbsp;/&nbsp; Ten Exhibitions</span>
+</header>
+
+<main>
+  <!-- ============ LANDING ============ -->
+  <section id="landing" class="screen is-active" aria-label="Museum entrance">
+    <div class="wrap">
+      <div class="landing">
+        <p class="eyebrow">A Digital Exhibition</p>
+        <h1 class="display">The Campaign Museum</h1>
+        <hr class="rule">
+        <p class="landing__tagline">Ten campaigns. Five lenses. One definitive collection.</p>
+        <button id="startBtn" class="btn" type="button">Enter the Museum</button>
+        <ul class="landing__facts">
+          <li>Admission Free</li>
+          <li>Ten Exhibitions</li>
+          <li>Five Lenses</li>
+          <li>Open Indefinitely</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXHIBIT ============ -->
+  <section id="exhibit" class="screen" aria-label="Campaign exhibit">
+    <div class="wrap">
+      <div class="exhibit__bar">
+        <span id="counter" class="counter">Exhibit 01 / 10</span>
+        <button id="homeBtn" class="link" type="button">Back to Entrance</button>
+      </div>
+
+      <div class="progress" role="progressbar" aria-label="Journey progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" id="progressBar">
+        <div class="progress__fill" id="progressFill"></div>
+      </div>
+      <div class="ticks" id="dots" role="tablist" aria-label="Select an exhibit"></div>
+
+      <div id="exhibitInner" class="exhibit__inner"></div>
+
+      <div class="pager">
+        <div class="pager__side">
+          <button id="prevBtn" class="link" type="button">Previous</button>
+        </div>
+        <div class="pager__side pager__side--end">
+          <button id="nextBtn" class="btn btn--line" type="button">Next</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXIT ============ -->
+  <section id="exit" class="screen" aria-label="Museum exit">
+    <div class="wrap">
+      <div class="exit">
+        <p class="eyebrow">End of the Collection</p>
+        <h1 class="display">Thank you for visiting the Campaign Museum</h1>
+        <hr class="rule">
+        <p class="exit__tagline">You have seen all ten exhibits through five very sharp lenses.</p>
+        <div class="exit__stats">
+          <div class="exit__stat"><strong>10</strong><span>Campaigns viewed</span></div>
+          <div class="exit__stat"><strong>5</strong><span>Lenses per exhibit</span></div>
+          <div class="exit__stat"><strong>01</strong><span>Journey completed</span></div>
+        </div>
+        <button id="restartBtn" class="btn" type="button">Restart the Journey</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ LOADER ============ -->
+<div id="loader" aria-live="polite" aria-label="Entering the museum">
+  <div>
+    <p class="loader__title">Entering the Museum</p>
+    <div class="loader__line"><span></span></div>
+    <p class="loader__text">Please stand by</p>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   CAMPAIGN DATA
+   All exhibit content lives here. Replace these values with real copy later
+   without touching the layout or the navigation logic.
+   Fields: id, name, brand, year, image, summary, psychology, storytelling,
+           positioning, culturalRelevance, execution, keyTakeaway
+   ========================================================================== */
+const campaigns = [
+  {
+    id: 1,
+    name: "Campaign 01",
+    brand: "Placeholder Brand 01",
+    year: "2001",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 01 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 01."
+  },
+  {
+    id: 2,
+    name: "Campaign 02",
+    brand: "Placeholder Brand 02",
+    year: "2002",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 02 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 02."
+  },
+  {
+    id: 3,
+    name: "Campaign 03",
+    brand: "Placeholder Brand 03",
+    year: "2003",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 03 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 03."
+  },
+  {
+    id: 4,
+    name: "Campaign 04",
+    brand: "Placeholder Brand 04",
+    year: "2004",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 04 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 04."
+  },
+  {
+    id: 5,
+    name: "Campaign 05",
+    brand: "Placeholder Brand 05",
+    year: "2005",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 05 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 05."
+  },
+  {
+    id: 6,
+    name: "Campaign 06",
+    brand: "Placeholder Brand 06",
+    year: "2006",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 06 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 06."
+  },
+  {
+    id: 7,
+    name: "Campaign 07",
+    brand: "Placeholder Brand 07",
+    year: "2007",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 07 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 07."
+  },
+  {
+    id: 8,
+    name: "Campaign 08",
+    brand: "Placeholder Brand 08",
+    year: "2008",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 08 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 08."
+  },
+  {
+    id: 9,
+    name: "Campaign 09",
+    brand: "Placeholder Brand 09",
+    year: "2009",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 09 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 09."
+  },
+  {
+    id: 10,
+    name: "Campaign 10",
+    brand: "Placeholder Brand 10",
+    year: "2010",
+    image: "",
+    summary: "Placeholder one line summary for Campaign 10 goes here.",
+    psychology: "Placeholder analysis for psychology goes here.",
+    storytelling: "Placeholder analysis for storytelling goes here.",
+    positioning: "Placeholder analysis for positioning goes here.",
+    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
+    execution: "Placeholder analysis for execution goes here.",
+    keyTakeaway: "Placeholder key takeaway for Campaign 10."
+  }
+];
+
+/* ----------------------------- helpers ---------------------------------- */
+const $ = (sel) => document.querySelector(sel);
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function makePlaceholderImage(campaign) {
+  const label = escapeHtml(campaign.name.toUpperCase());
+  const brand = escapeHtml(campaign.brand.toUpperCase());
+  const svg =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">' +
+      '<rect width="1280" height="720" fill="#eceae4"/>' +
+      '<rect x="60" y="60" width="1160" height="600" fill="none" stroke="#b7b1a5" stroke-width="1"/>' +
+      '<line x1="60" y1="420" x2="1220" y2="420" stroke="#d7d2c9" stroke-width="1"/>' +
+      '<text x="640" y="350" font-family="Georgia, serif" font-size="54" letter-spacing="6" fill="#121212" text-anchor="middle">' + label + '</text>' +
+      '<text x="640" y="480" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="8" fill="#57524a" text-anchor="middle">' + brand + '</text>' +
+      '<text x="640" y="530" font-family="Helvetica, Arial, sans-serif" font-size="16" letter-spacing="6" fill="#c2185b" text-anchor="middle">IMAGE PENDING</text>' +
+    '</svg>';
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+/* ----------------------------- state ------------------------------------ */
+let currentIndex = 0;
+
+/* ----------------------------- screens ---------------------------------- */
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach((s) => {
+    s.classList.toggle("is-active", s.id === id);
+  });
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+/* ----------------------------- ticks ------------------------------------ */
+function buildTicks() {
+  const ticks = $("#dots");
+  let html = "";
+  campaigns.forEach((c, i) => {
+    html += '<button class="tick" type="button" role="tab" data-index="' + i +
+            '" aria-label="Go to ' + escapeHtml(c.name) + '"></button>';
+  });
+  ticks.innerHTML = html;
+  ticks.addEventListener("click", (e) => {
+    const btn = e.target.closest(".tick");
+    if (!btn) return;
+    goTo(parseInt(btn.dataset.index, 10));
+  });
+}
+
+/* ----------------------------- render ----------------------------------- */
+function renderExhibit(direction) {
+  const c = campaigns[currentIndex];
+  const total = campaigns.length;
+  const img = c.image || makePlaceholderImage(c);
+  const alt = escapeHtml(c.name) + ", " + escapeHtml(c.brand) + ", exhibit image";
+
+  const lenses = [
+    ["Psychology", c.psychology],
+    ["Storytelling", c.storytelling],
+    ["Positioning", c.positioning],
+    ["Cultural Relevance", c.culturalRelevance],
+    ["Execution", c.execution]
+  ];
+
+  let lensHtml = "";
+  lenses.forEach((lens, i) => {
+    lensHtml +=
+      '<div class="lens">' +
+        '<div class="lens__label">' +
+          '<span class="lens__no">' + String(i + 1).padStart(2, "0") + '</span>' +
+          '<h3 class="lens__name">' + escapeHtml(lens[0]) + '</h3>' +
+        '</div>' +
+        '<p class="lens__text">' + escapeHtml(lens[1]) + '</p>' +
+      '</div>';
+  });
+
+  $("#exhibitInner").innerHTML =
+    '<div class="exhibit__head">' +
+      '<div>' +
+        '<p class="eyebrow">' + escapeHtml(c.brand) + '</p>' +
+        '<h2 class="display-sm">' + escapeHtml(c.name) + '</h2>' +
+      '</div>' +
+      '<span class="exhibit__year">' + escapeHtml(c.year) + '</span>' +
+    '</div>' +
+    '<figure class="exhibit__media">' +
+      '<img src="' + img + '" alt="' + alt + '">' +
+      '<figcaption class="exhibit__caption">' +
+        '<span>' + escapeHtml(c.name) + '</span>' +
+        '<span>Campaign Archive</span>' +
+      '</figcaption>' +
+    '</figure>' +
+    '<p class="exhibit__lede">' + escapeHtml(c.summary) + '</p>' +
+    '<div class="lenses">' + lensHtml + '</div>' +
+    '<div class="takeaway">' +
+      '<p class="eyebrow">Key Takeaway</p>' +
+      '<p>' + escapeHtml(c.keyTakeaway) + '</p>' +
+    '</div>';
+
+  const inner = $("#exhibitInner");
+  inner.classList.remove("from-left", "from-right");
+  if (direction === "next") inner.classList.add("from-right");
+  if (direction === "prev") inner.classList.add("from-left");
+
+  $("#counter").textContent =
+    "Exhibit " + String(currentIndex + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0");
+
+  const pct = Math.round(((currentIndex + 1) / total) * 100);
+  $("#progressFill").style.width = pct + "%";
+  $("#progressBar").setAttribute("aria-valuenow", pct);
+
+  document.querySelectorAll(".tick").forEach((tick, i) => {
+    tick.classList.toggle("is-current", i === currentIndex);
+    tick.classList.toggle("is-done", i < currentIndex);
+    tick.setAttribute("aria-selected", i === currentIndex ? "true" : "false");
+  });
+
+  const prev = $("#prevBtn");
+  const next = $("#nextBtn");
+  prev.disabled = currentIndex === 0;
+  next.textContent = currentIndex === total - 1 ? "Finish" : "Next";
+}
+
+/* ----------------------------- navigation ------------------------------- */
+function goTo(index, direction) {
+  if (index < 0 || index >= campaigns.length) return;
+  if (direction === undefined) direction = index > currentIndex ? "next" : "prev";
+  currentIndex = index;
+  renderExhibit(direction);
+}
+
+function next() {
+  if (currentIndex < campaigns.length - 1) goTo(currentIndex + 1, "next");
+  else showScreen("exit");
+}
+
+function prev() {
+  if (currentIndex > 0) goTo(currentIndex - 1, "prev");
+}
+
+function startJourney() {
+  const loader = $("#loader");
+  loader.classList.add("is-active");
+  window.setTimeout(() => {
+    loader.classList.remove("is-active");
+    currentIndex = 0;
+    showScreen("exhibit");
+    renderExhibit("next");
+  }, 1500);
+}
+
+/* ----------------------------- events ----------------------------------- */
+$("#startBtn").addEventListener("click", startJourney);
+$("#restartBtn").addEventListener("click", () => {
+  currentIndex = 0;
+  showScreen("landing");
+});
+$("#homeBtn").addEventListener("click", () => showScreen("landing"));
+$("#brandHome").addEventListener("click", (e) => {
+  e.preventDefault();
+  showScreen("landing");
+});
+$("#nextBtn").addEventListener("click", next);
+$("#prevBtn").addEventListener("click", prev);
+
+document.addEventListener("keydown", (e) => {
+  if (!$("#exhibit").classList.contains("is-active")) return;
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea") return;
+  if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+  if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
+});
+
+/* ----------------------------- init ------------------------------------- */
+buildTicks();
+</script>
+</body>
+</html>
