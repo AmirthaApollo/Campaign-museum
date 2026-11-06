@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Campaign Museum mark">
+  <rect width="64" height="64" fill="#f6efe2"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" fill="none" stroke="#2b1d17" stroke-width="1.5"/>
+  <text x="32" y="45" font-family="Georgia, 'Times New Roman', serif" font-size="42" fill="#2b1d17" text-anchor="middle">M</text>
+  <rect x="19" y="53" width="26" height="3" fill="#6d1f2e"/>
+</svg>

@@ -4,22 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Campaign Museum</title>
-<meta name="description" content="An interactive digital exhibition analysing ten iconic marketing campaigns through five lenses.">
+<meta name="description" content="An interactive digital campaign analysing ten iconic marketing campaigns through five lenses.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23f6efe2%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2242%22%20fill%3D%22%232b1d17%22%20text-anchor%3D%22middle%22%3EM%3C%2Ftext%3E%3Crect%20x%3D%2219%22%20y%3D%2253%22%20width%3D%2226%22%20height%3D%223%22%20fill%3D%22%236d1f2e%22%2F%3E%3C%2Fsvg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500&family=Inter:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://www.youtube.com/iframe_api"></script>
 <style>
   :root {
-    --paper: #f5f3ef;
-    --paper-alt: #eceae4;
-    --ink: #121212;
-    --muted: #57524a;
-    --line: #d7d2c9;
-    --line-strong: #b7b1a5;
-    --accent: #c2185b;
-    --display: "Bodoni Moda", "Times New Roman", serif;
+    --paper: #f6efe2;
+    --paper-alt: #ece1cd;
+    --ink: #2b1d17;
+    --muted: #6b5646;
+    --line: #dccbb4;
+    --line-strong: #c3ac91;
+    --accent: #6d1f2e;
+    --accent-2: #4a2f22;
+    --accent-3: #8a2b3d;
+    --accent-4: #6f4d36;
+    --accent-5: #520f1c;
+    --display: "Lora", Georgia, "Times New Roman", serif;
     --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-    --caps: "Jost", "Helvetica Neue", Arial, sans-serif;
+    --caps: "Inter", "Helvetica Neue", Arial, sans-serif;
     --pad: clamp(20px, 5vw, 72px);
   }
 
@@ -36,16 +43,28 @@
     font-weight: 300;
     color: var(--ink);
     background:
-      radial-gradient(1200px 820px at 0% 0%, rgba(194, 24, 91, 0.07), transparent 62%),
-      radial-gradient(1100px 760px at 100% 100%, rgba(194, 24, 91, 0.06), transparent 62%),
-      radial-gradient(900px 520px at 100% 0%, rgba(194, 24, 91, 0.04), transparent 60%),
+      radial-gradient(1200px 820px at 0% 0%, rgba(109, 31, 46, 0.10), transparent 62%),
+      radial-gradient(1100px 760px at 100% 100%, rgba(74, 47, 34, 0.10), transparent 62%),
+      radial-gradient(900px 520px at 100% 0%, rgba(138, 43, 61, 0.08), transparent 60%),
+      radial-gradient(820px 560px at 0% 100%, rgba(111, 77, 54, 0.08), transparent 60%),
       var(--paper);
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  ::selection { background: rgba(194, 24, 91, 0.16); color: var(--ink); }
+  ::selection { background: rgba(109, 31, 46, 0.18); color: var(--ink); }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22180%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url(%23n)%22%2F%3E%3C%2Fsvg%3E");
+  }
 
   /* ---------- shared type ---------- */
   .eyebrow {
@@ -54,7 +73,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--accent);
     margin: 0;
   }
 
@@ -77,8 +96,8 @@
   }
 
   .rule {
-    height: 1px;
-    background: var(--line-strong);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), var(--accent-4), transparent);
     border: 0;
     margin: 0;
   }
@@ -111,13 +130,35 @@
     letter-spacing: 0.04em;
     color: var(--ink);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
   }
+  .masthead__brand::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-5));
+  }
+  .masthead__right {
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+  }
+  .masthead__campaign {
+    display: none;
+    align-items: baseline;
+    gap: 22px;
+  }
+  body[data-view="campaign"] .masthead__campaign { display: flex; }
+  body[data-view="campaign"] .masthead__meta { display: none; }
   .masthead__meta {
     font-family: var(--caps);
     font-size: 0.66rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--accent);
   }
 
   /* ---------- buttons ---------- */
@@ -130,13 +171,14 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--paper);
-    background: var(--ink);
-    border: 1px solid var(--ink);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
     padding: 18px 40px;
     transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
   }
   .btn:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
-  .btn:active { background: var(--ink); color: var(--paper); }
+  .btn:active { background: var(--accent-2); color: var(--paper); border-color: var(--accent-2); }
   .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
   .btn--line {
@@ -182,32 +224,66 @@
     margin: 0 auto 46px;
     line-height: 1.5;
   }
-  .landing__facts {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 14px 40px;
-    list-style: none;
-    margin: 72px 0 0;
-    padding: 26px 0 0;
-    border-top: 1px solid var(--line);
+  .contents {
+    max-width: 760px;
+    margin: 84px auto 0;
+    text-align: left;
+    border-top: 1px solid var(--line-strong);
   }
-  .landing__facts li {
+  .contents__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .contents__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .contents__item {
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    align-items: baseline;
+    gap: 18px;
+    width: 100%;
+    text-align: left;
+    appearance: none;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 20px 6px;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: background 0.35s ease, padding-left 0.35s ease;
+  }
+  .contents__item:hover { background: rgba(109, 31, 46, 0.06); padding-left: 16px; }
+  .contents__item:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .contents__no {
     font-family: var(--caps);
-    font-size: 0.64rem;
-    letter-spacing: 0.26em;
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .contents__list li:nth-child(3n+2) .contents__no { color: var(--accent-2); }
+  .contents__list li:nth-child(3n+3) .contents__no { color: var(--accent-3); }
+  .contents__name {
+    font-family: var(--display);
+    font-size: 1.35rem;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .contents__meta {
+    font-family: var(--caps);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--muted);
+    text-align: right;
   }
 
-  /* ---------- exhibition header ---------- */
-  .exhibit__bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 24px 0 14px;
-  }
+  /* ---------- campaign progress ---------- */
   .counter {
     font-family: var(--caps);
     font-size: 0.72rem;
@@ -218,18 +294,18 @@
   .progress {
     height: 1px;
     background: var(--line);
-    margin-bottom: 18px;
+    margin: 18px 0 14px;
   }
   .progress__fill {
     height: 1px;
     width: 10%;
-    background: var(--accent);
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .ticks {
     display: flex;
     gap: 10px;
-    margin-bottom: 54px;
+    margin-bottom: 30px;
   }
   .tick {
     width: 6px;
@@ -243,18 +319,18 @@
   }
   .tick:hover { border-color: var(--ink); transform: scale(1.3); }
   .tick:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .tick.is-done { background: rgba(194, 24, 91, 0.35); border-color: rgba(194, 24, 91, 0.35); }
+  .tick.is-done { background: rgba(109, 31, 46, 0.40); border-color: rgba(109, 31, 46, 0.40); }
   .tick.is-current { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
 
-  /* ---------- exhibit body ---------- */
-  .exhibit__inner { animation: rise 0.55s ease both; }
-  .exhibit__inner.from-right { animation-name: rise-right; }
-  .exhibit__inner.from-left { animation-name: rise-left; }
+  /* ---------- campaign body ---------- */
+  .campaign__inner { animation: rise 0.55s ease both; }
+  .campaign__inner.from-right { animation-name: rise-right; }
+  .campaign__inner.from-left { animation-name: rise-left; }
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
   @keyframes rise-right { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
   @keyframes rise-left { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
 
-  .exhibit__head {
+  .campaign__head {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -262,26 +338,50 @@
     padding-bottom: 22px;
     border-bottom: 1px solid var(--line-strong);
   }
-  .exhibit__head .eyebrow { margin-bottom: 14px; }
-  .exhibit__year {
+  .campaign__head .eyebrow { margin-bottom: 14px; }
+  .campaign__year {
     font-family: var(--display);
     font-size: clamp(1.4rem, 3vw, 2.2rem);
     color: var(--muted);
     white-space: nowrap;
   }
 
-  .exhibit__media {
+  .campaign__media {
     margin: 42px 0 0;
+    overflow: hidden;
+    position: relative;
   }
-  .exhibit__media img {
+  .campaign__media img {
     display: block;
     width: 100%;
     height: auto;
+    max-height: 52vh;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     background: var(--paper-alt);
+    transition: transform 0.9s cubic-bezier(0.2, 0, 0.2, 1);
   }
-  .exhibit__caption {
+  .campaign__media:hover img { transform: scale(1.035); }
+  .campaign__media iframe,
+  .yt-player {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 52vh;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    background: #000;
+  }
+  .yt-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    display: none;
+  }
+  .campaign__media.show-play .yt-play { display: inline-flex; }
+  .campaign__caption {
     display: flex;
     justify-content: space-between;
     gap: 16px;
@@ -295,85 +395,157 @@
     color: var(--muted);
   }
 
-  .exhibit__lede {
+  /* ---------- article ---------- */
+  .article {
+    max-width: 46rem;
+    margin: clamp(40px, 6vw, 64px) auto 0;
+  }
+  .article__lede {
+    max-width: 46rem;
+    margin: clamp(30px, 4vw, 46px) auto 0;
     font-family: var(--display);
     font-weight: 400;
-    font-size: clamp(1.35rem, 3vw, 2.15rem);
-    line-height: 1.35;
+    font-size: clamp(1.25rem, 2.6vw, 1.8rem);
+    line-height: 1.45;
     letter-spacing: -0.005em;
-    max-width: 34ch;
-    margin: clamp(48px, 8vw, 90px) auto 0;
-    text-align: center;
-  }
-
-  /* ---------- five lenses ---------- */
-  .lenses {
-    margin-top: clamp(60px, 9vw, 110px);
-    border-top: 1px solid var(--line-strong);
-  }
-  .lens {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 40px;
-    padding: 34px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .lens__label {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-  }
-  .lens__no {
-    font-family: var(--caps);
-    font-size: 0.66rem;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-  }
-  .lens__name {
-    font-family: var(--display);
-    font-weight: 400;
-    font-size: 1.5rem;
-    line-height: 1.1;
-    margin: 0;
-  }
-  .lens__text {
-    margin: 0;
-    max-width: 62ch;
-    font-size: 1rem;
-    line-height: 1.75;
     color: var(--ink);
   }
+  .article__lede::first-letter {
+    float: left;
+    font-family: var(--display);
+    font-size: 4.2em;
+    line-height: 0.72;
+    padding: 0.05em 0.1em 0 0;
+    color: var(--accent);
+  }
+  .article__section { margin-bottom: clamp(40px, 5.5vw, 60px); }
+  .article__heading {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2.05rem);
+    line-height: 1.1;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .article__section:nth-child(2) .article__heading { border-color: var(--accent-2); }
+  .article__section:nth-child(3) .article__heading { border-color: var(--accent-3); }
+  .article__section:nth-child(4) .article__heading { border-color: var(--accent-4); }
+  .article__section:nth-child(5) .article__heading { border-color: var(--accent-5); }
+  .article__section p {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--ink);
+  }
+  .article__section p + p { margin-top: 1em; }
 
   /* ---------- takeaway ---------- */
   .takeaway {
-    margin-top: clamp(60px, 9vw, 110px);
-    padding: clamp(40px, 7vw, 72px) 0;
-    border-top: 1px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
-    text-align: center;
+    max-width: 46rem;
+    margin: clamp(40px, 6vw, 64px) auto 0;
+    padding: clamp(30px, 4vw, 44px) clamp(26px, 4vw, 48px);
+    border: 1px solid var(--ink);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    background: linear-gradient(120deg, rgba(109, 31, 46, 0.12), rgba(74, 47, 34, 0.10) 55%, rgba(138, 43, 61, 0.12));
   }
-  .takeaway .eyebrow { margin-bottom: 22px; color: var(--accent); }
+  .takeaway .eyebrow { margin-bottom: 14px; color: var(--accent); }
   .takeaway p {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: clamp(1.3rem, 3.2vw, 2.2rem);
-    line-height: 1.4;
-    max-width: 30ch;
-    margin: 0 auto;
+    margin: 0;
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 1.08rem;
+    line-height: 1.85;
+    color: var(--ink);
   }
 
-  /* ---------- pager ---------- */
-  .pager {
+  /* ---------- next campaign teaser ---------- */
+  .next-campaign {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 64px;
-    padding-top: 26px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    max-width: 46rem;
+    margin: clamp(40px, 6vw, 64px) auto 0;
+    padding: 28px 0 6px;
+    border: 0;
     border-top: 1px solid var(--line-strong);
+    background: none;
+    text-align: left;
+    cursor: pointer;
   }
-  .pager__side { min-width: 120px; }
-  .pager__side--end { text-align: right; }
+  .next-campaign:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .next-campaign__name {
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 3vw, 2.05rem);
+    line-height: 1.15;
+    color: var(--ink);
+    transition: color 0.35s ease;
+  }
+  .next-campaign:hover .next-campaign__name { color: var(--accent); }
+
+  /* ---------- campaign stage and nav rails ---------- */
+  .campaign__stage {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr) 180px;
+    gap: 28px;
+    align-items: start;
+    margin-top: clamp(30px, 4vw, 46px);
+  }
+  .campaign__stage .campaign__media { margin: 0; grid-column: 2; }
+  .campaign__rail {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 24px;
+  }
+  .campaign__rail--left { grid-column: 1; }
+  .campaign__rail--right { grid-column: 3; }
+  .rail-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 22px 20px;
+    text-align: left;
+    cursor: pointer;
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    color: var(--ink);
+    transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  }
+  .rail-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .rail-btn:hover .rail-btn__label { color: var(--paper); }
+  .rail-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .rail-btn:disabled { opacity: 0.4; cursor: default; }
+  .rail-btn:disabled:hover { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .rail-btn:disabled:hover .rail-btn__label { color: var(--accent); }
+  .rail-btn__label {
+    font-family: var(--caps);
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    transition: color 0.35s ease;
+  }
+  .rail-btn__name {
+    font-family: var(--display);
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+  .rail-btn--next {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+  }
+  .rail-btn--next .rail-btn__label { color: rgba(255, 255, 255, 0.75); }
+  .rail-btn--next:hover { background: var(--accent-2); border-color: var(--accent-2); }
 
   /* ---------- exit ---------- */
   .exit {
@@ -412,8 +584,10 @@
     font-weight: 400;
     font-size: 2.6rem;
     line-height: 1;
-    color: var(--ink);
+    color: var(--accent);
   }
+  .exit__stat:nth-child(2) strong { color: var(--accent-2); }
+  .exit__stat:nth-child(3) strong { color: var(--accent-3); }
   .exit__stat span {
     font-family: var(--caps);
     font-size: 0.64rem;
@@ -473,9 +647,15 @@
 
   /* ---------- responsive ---------- */
   @media (max-width: 760px) {
-    .lens { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
-    .exhibit__head { flex-direction: column; align-items: flex-start; }
-    .landing__facts { gap: 12px 26px; }
+    .contents__item { grid-template-columns: 38px 1fr; }
+    .contents__meta { display: none; }
+    .campaign__head { flex-direction: column; align-items: flex-start; }
+    .campaign__stage { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .campaign__stage .campaign__media { grid-column: 1 / -1; grid-row: 1; }
+    .campaign__rail { position: static; }
+    .campaign__rail--left { grid-column: 1; grid-row: 2; }
+    .campaign__rail--right { grid-column: 2; grid-row: 2; }
+    .rail-btn { padding: 18px 16px; }
     .exit__stats { gap: 30px; }
     .masthead__meta { display: none; }
   }
@@ -489,11 +669,17 @@
   }
 </style>
 </head>
-<body>
+<body data-view="landing">
 
 <header class="masthead">
   <a class="masthead__brand" href="#" id="brandHome">The Campaign Museum</a>
-  <span class="masthead__meta">Issue 01 &nbsp;/&nbsp; Ten Exhibitions</span>
+  <div class="masthead__right">
+    <span class="masthead__meta" id="mastheadMeta">amirtha apollo</span>
+    <div class="masthead__campaign" id="mastheadCampaign">
+      <span id="counter" class="counter">Campaign 01 / 10</span>
+      <button id="homeBtn" class="link" type="button">Back to Entrance</button>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -501,44 +687,31 @@
   <section id="landing" class="screen is-active" aria-label="Museum entrance">
     <div class="wrap">
       <div class="landing">
-        <p class="eyebrow">A Digital Exhibition</p>
+        <p class="eyebrow">A Digital Campaign</p>
         <h1 class="display">The Campaign Museum</h1>
         <hr class="rule">
         <p class="landing__tagline">Ten campaigns. Five lenses. One definitive collection.</p>
         <button id="startBtn" class="btn" type="button">Enter the Museum</button>
-        <ul class="landing__facts">
-          <li>Admission Free</li>
-          <li>Ten Exhibitions</li>
-          <li>Five Lenses</li>
-          <li>Open Indefinitely</li>
-        </ul>
+        <div class="contents">
+          <div class="contents__head">
+            <p class="eyebrow">In This Issue</p>
+            <p class="eyebrow">Ten Campaigns</p>
+          </div>
+          <ol class="contents__list" id="contentsList"></ol>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ EXHIBIT ============ -->
-  <section id="exhibit" class="screen" aria-label="Campaign exhibit">
+  <!-- ============ CAMPAIGN ============ -->
+  <section id="campaign" class="screen" aria-label="Campaign">
     <div class="wrap">
-      <div class="exhibit__bar">
-        <span id="counter" class="counter">Exhibit 01 / 10</span>
-        <button id="homeBtn" class="link" type="button">Back to Entrance</button>
-      </div>
-
       <div class="progress" role="progressbar" aria-label="Journey progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" id="progressBar">
         <div class="progress__fill" id="progressFill"></div>
       </div>
-      <div class="ticks" id="dots" role="tablist" aria-label="Select an exhibit"></div>
+      <div class="ticks" id="dots" role="tablist" aria-label="Select an campaign"></div>
 
-      <div id="exhibitInner" class="exhibit__inner"></div>
-
-      <div class="pager">
-        <div class="pager__side">
-          <button id="prevBtn" class="link" type="button">Previous</button>
-        </div>
-        <div class="pager__side pager__side--end">
-          <button id="nextBtn" class="btn btn--line" type="button">Next</button>
-        </div>
-      </div>
+      <div id="campaignInner" class="campaign__inner"></div>
     </div>
   </section>
 
@@ -549,10 +722,10 @@
         <p class="eyebrow">End of the Collection</p>
         <h1 class="display">Thank you for visiting the Campaign Museum</h1>
         <hr class="rule">
-        <p class="exit__tagline">You have seen all ten exhibits through five very sharp lenses.</p>
+        <p class="exit__tagline">You have seen all ten campaigns through five very sharp lenses.</p>
         <div class="exit__stats">
           <div class="exit__stat"><strong>10</strong><span>Campaigns viewed</span></div>
-          <div class="exit__stat"><strong>5</strong><span>Lenses per exhibit</span></div>
+          <div class="exit__stat"><strong>5</strong><span>Lenses per campaign</span></div>
           <div class="exit__stat"><strong>01</strong><span>Journey completed</span></div>
         </div>
         <button id="restartBtn" class="btn" type="button">Restart the Journey</button>
@@ -573,151 +746,154 @@
 <script>
 /* ==========================================================================
    CAMPAIGN DATA
-   All exhibit content lives here. Replace these values with real copy later
+   All campaign content lives here. Replace these values with real copy later
    without touching the layout or the navigation logic.
    Fields: id, name, brand, year, image, summary, psychology, storytelling,
-           positioning, culturalRelevance, execution, keyTakeaway
+           positioning, culturalRelevance, execution, importantInsights
    ========================================================================== */
 const campaigns = [
   {
     id: 1,
-    name: "Campaign 01",
-    brand: "Placeholder Brand 01",
-    year: "2001",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 01 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 01."
+    name: "Is That Heinz?",
+    brand: "Heinz",
+    year: "2023",
+    image: "images/campaign1.jpg",
+    summary: "Heinz fought ketchup fraud in Turkish street food restaurants by printing a stripe of its exact shade of red around the bottle label, turning the packaging itself into a proof of authenticity.",
+    psychology: "The campaign turns every diner into a detective. A simple at-the-table test invites curiosity and a small sense of satisfaction at spotting a fake, so checking the bottle almost becomes a game. It also taps a universal instinct: nobody likes being cheated, even over a condiment, and Heinz channels that irritation into loyalty with a clear message that it is on the customer's side. Once restaurant owners know diners can check, the risk of being publicly caught adds a layer of accountability, putting consumer scrutiny to work instead of relying only on enforcement. Talking about imposters also sends a quiet signal of superiority, because it implies Heinz is the brand worth faking.",
+    storytelling: "The narrative follows a classic hero and villain structure. Authentic Heinz is the standard, imposter ketchup is the villain, and the customer, armed with the Label of Truth, is the hero. Humor does the heavy lifting, and phrases like ketchup fraud and Label of Truth treat a trivial problem with mock seriousness, which is exactly what makes the story fun to repeat and share. Best of all, the story lives inside the product itself, so the bottle tells the whole story without an ad.",
+    positioning: "The campaign cements Heinz as the benchmark for ketchup. When your color is consistent enough to match the Pantone system, you become the standard everyone else gets measured against. It builds on the long-running line, It has to be Heinz, and backs the claim with a visible authenticity cue that invites people to check. A color match is not foolproof, since another ketchup could share a similar shade, but as a signal of confidence it is powerful. Most importantly, it positions Heinz as a brand that protects its customers rather than simply sells to them, and that shift from seller to ally is where real trust comes from.",
+    culturalRelevance: "The idea addressed a real problem found in some Turkish street food restaurants, which made it feel grounded rather than invented. Yet almost everyone, anywhere, has eyed a suspicious restaurant ketchup bottle, and that universality is why the idea traveled worldwide. It also tapped into bigger conversations about authenticity, counterfeits, and the internet's appetite for clever brand hacks. Referencing Pantone, a standard every designer knows, added credibility and won attention from the creative and design press.",
+    execution: "The format was a packaging-led brand activation, with guerrilla-style, experiential, earned media, and social amplification behind it. The packaging was the primary channel: bottles carrying the Pantone-matched stripe were distributed into street food restaurants, placing the tool exactly where the fraud happened. A social campaign led on Instagram spread the idea and explained the problem, and an Instagram filter let diners check the color match digitally at the table. As reported by VML and WPP, the results were strong: 100,000 organic shares, 800,000 social media likes, 2,000 plus posts on X, 97 percent of consumers able to distinguish genuine Heinz, non-Heinz refills down 73 percent, and Heinz usage in street food restaurants up 24 percent. These figures are agency-reported rather than independently audited, and the published sources do not give sample sizes or measurement periods. A fair critique is that under dim or warm restaurant lighting, telling two shades of red apart is harder than it sounds, so the label works best as an authenticity cue rather than a foolproof test. Even so, the value was visibility and positioning, and if the reported drop in refills holds up, the mere possibility of being checked changed behavior.",
+    importantInsights: "Heinz took a product truth, its consistent color, and turned it into both a brand asset and a consumer tool. The packaging did the heavy lifting, with social and press amplification behind it. It is a reminder that the best campaigns do not always need a bigger budget, they need a sharper insight."
   },
   {
     id: 2,
-    name: "Campaign 02",
-    brand: "Placeholder Brand 02",
-    year: "2002",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 02 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 02."
+    name: "The Billboard Trap",
+    brand: "Orphea",
+    year: "2013",
+    image: "images/campaign2.jpg",
+    video: { id: "xgvXZsgr9IQ", start: 48, end: 55 },
+    summary: "Orphea turned a Milan billboard into a working insect trap in 2013, letting thousands of real insects slowly draw the spray and prove the product on the street.",
+    psychology: "The campaign leans on a long-standing idea in persuasion: visible evidence often lands harder than a verbal claim. A line like kills insects fast invites skepticism, while thousands of real trapped insects do not argue, they just sit there looking like proof. It also uses curiosity and anticipation, because a billboard that changes every day gives passers-by a reason to look again, which is rare for outdoor media people usually tune out. There is a visceral layer too: insects trigger mild disgust, and showing that disgust on a giant scale reminds viewers of the problem the product solves and makes the solution feel urgent. The result is a wordless association between brand and action, where can plus trapped bugs equals effective spray.",
+    storytelling: "Most ads tell a story in 30 seconds or a single frame, but the Billboard Trap tells its story over days. The narrative has a clear arc: an ordinary billboard, a mystery as dots begin to appear, and a reveal as the spray takes shape in insects. The insects themselves are the storytellers, with no copy, no actor, and no voiceover doing the persuading, which makes the idea instantly understandable across languages. The time-lapse case film then compresses days of slow change into a satisfying minute of transformation, exactly the kind of content people pass around online.",
+    positioning: "Insecticide is a crowded, low-interest category where most products look and sound the same. Orphea positioned itself specifically as the solution for outdoor insect control, proven in the open air, competing on a demonstration instead of a claim. Placing the demonstration outside, in a real urban environment full of real insects, made the message more credible than a lab-style claim in a TV spot. It positioned Orphea as clever and confident, a brand willing to put its promise in public and let the results speak, and for a commodity category that boldness is a point of difference in itself.",
+    culturalRelevance: "The campaign ran in spring, as Milan's insect season began, putting the message in front of people exactly when flies and mosquitoes were becoming a daily irritation, so the problem felt immediate rather than hypothetical. The insight is also universal, because almost everyone anywhere finds bugs annoying, which is why a billboard in one Italian city traveled across advertising blogs and creative sites worldwide. It also arrived at a moment when brands were discovering the power of turning physical media into shareable online content, part of a wave of early 2010s outdoor ideas built as much for the case film and the internet as for the street.",
+    execution: "The execution was low-tech and precise: a standard billboard printed with the Orphea can, a transparent adhesive applied in the shape of the spray, and placement at a busy intersection where night-time lighting attracted insects. Fosbury ADV, the outdoor advertising concessionaire, supplied the space, and the agency was Publicis Italy, with creative directors Bruno Bertelli and Cristiana Boccassini. The real amplifier was the time-lapse case film. Publicis documented the billboard filling up over days and shared the video online, where it spread across creative and advertising sites, so the street billboard reached one city while the film reached the world. Reported results come from the brand and the agency's Cannes Lions entry rather than independent research: about 230,000 insects trapped by the adhesive, and sell-in up 12 percent in Q1 2013 versus Q1 2012. The sell-in figure needs care, since it covers the first quarter of 2013 while trade coverage of the billboard appeared in May, so the sources do not show how much of that growth the billboard itself drove. A fair critique is that the billboard proves an adhesive traps insects, not that the spray kills them, and a 2025 retrospective in The Drum says the adhesive contained Orphea's active ingredient while contemporary 2013 reporting describes only an adhesive surface, so that claim is hard to confirm. There is also an environmental question, since a trap that catches everything also catches harmless and beneficial insects, and audiences today are far more alert to pollinator decline than they were in 2013.",
+    importantInsights: "Show, don't tell: the benefit becomes something people can physically observe. Media as the message: the billboard performs the idea rather than carrying it. Earned media: the unusual execution becomes a time-lapse film that spreads far beyond Milan. Orphea turned an ordinary billboard into a live product demonstration, letting real insects write the ad, and showed that in a crowded, low-interest category the strongest claim is often the one you do not have to say out loud."
   },
   {
     id: 3,
-    name: "Campaign 03",
-    brand: "Placeholder Brand 03",
-    year: "2003",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 03 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 03."
+    name: "Cook This Page",
+    brand: "IKEA Canada",
+    year: "2017",
+    image: "images/campaign3.jpg",
+    video: { id: "MU3CCP7X9NY", start: 32, end: 88 },
+    summary: "IKEA Canada turned the recipe itself into a cooking tool: illustrated, to-scale instructions printed in edible ink on parchment paper that you fill with ingredients, roll up and bake.",
+    psychology: "The campaign targets a real barrier: cooking anxiety. Recipes ask people to measure, interpret and sequence steps, and each one is a chance to feel like you are getting it wrong, so Cook This Page removes most of those decisions by having the drawing show where things go and roughly how much to use. That reduces cognitive load, a well-established lever in behavior design, because when a task feels easier people are more willing to try it. It also creates a small sense of achievement, since people follow the page, bake it and end up with a real meal they made themselves, and the brand gets linked to that feeling of competence. There is a reciprocity effect too, because IKEA gave people something genuinely useful and free rather than just an ad. These are explanations of why the idea could work, and IKEA has not published research showing the campaign reduced cooking anxiety.",
+    storytelling: "The storytelling is almost entirely visual. Instead of a narrative ad, the brand tells its story through the object itself, in a format people already associate with IKEA: friendly illustrations, minimal words and step-by-step simplicity. That is the clever part. IKEA's assembly instructions are part of popular culture, often the butt of jokes, and here the brand takes that recognizable style and applies it to food, turning a familiar visual language into a delightful surprise. The story then continues in the user's own kitchen, where each person who cooks a page creates a little before-and-after moment, from a blank illustrated sheet to a finished dish. This is a clear case of brand asset transfer: instead of inventing a new style, IKEA moved its existing visual identity into a new category, so the page communicated the brand without the logo doing all the work.",
+    positioning: "IKEA sells kitchens, cookware and food, but the campaign does not sell any of them directly. It sells the idea behind them: IKEA makes everyday life at home easier, extending that promise from building furniture to cooking dinner. It also reinforces IKEA's democratic design positioning, good design made accessible to many people, and a beautifully illustrated recipe that anyone can follow is that philosophy in miniature. It gives IKEA food a quiet role too, since each recipe used IKEA food items, which nudges people to see the brand's food range as part of their own cooking rather than just something eaten in the store cafeteria.",
+    culturalRelevance: "Food content was already highly visual and social by 2017, and Cook This Page was inherently photogenic: a blank illustrated sheet, then a finished dish, which made it easy for publications and audiences to share. It also tapped a widespread, very human feeling of wanting to cook more but feeling unsure how, and that made the idea relevant far beyond Canada, which is why food and design publications around the world covered it. The IKEA manual reference adds another cultural layer, because so many people have struggled with flat-pack instructions that seeing that style turned into something easy and delicious carried a built-in wink.",
+    execution: "The execution lives or dies on print craft. Recipes were printed with FDA-approved edible ink on parchment paper, and each four-recipe book was sealed to prevent contamination. Ingredient outlines were measured to size, so the illustration also worked as a portion guide. Distribution happened in two layers. Before the books reached shoppers, they were mailed to IKEA store managers along with a pan, so managers could try the recipes and then set up the in-store event, which turned staff into advocates before the public ever saw the pages. The books were then made available in the food section of IKEA stores during a kitchen event. A total of 12,500 books were distributed across all 18 stores in Canada in February 2017, reported to be gone within hours. The bigger reach came from earned media, with food, design and lifestyle publications worldwide covering the idea as the award season began. The work was created by Leo Burnett Toronto and won widely in 2017: two Gold Lions for Outdoor and Design and two Bronze Lions for Promo and Activation and Direct at Cannes Lions, a Grand Clio, a Gold Pencil in Direct Marketing plus Silver and Bronze Pencils at The One Show, a Wood Pencil and Graphite Pencil at D&AD, and Craft of the Year at the Ad Age Creativity Awards. No published sales figures tie the campaign to kitchen event revenue, so its business impact is best described through reach and recognition rather than proven sales. A fair critique is that the footprint was small, since only 12,500 books existed in one country during one event, so most people who know Cook This Page saw it online rather than in their own kitchen. Parchment cooking, or en papillote, is not new either, and IKEA's contribution was the design layer of printing a measured, illustrated recipe onto the paper, a genuine innovation in format rather than in cooking technique.",
+    importantInsights: "Utility as advertising: the campaign gives people something genuinely useful, so the brand earns attention instead of buying it. Brand asset transfer: it takes a format people instantly link to IKEA, the illustrated manual, and applies it to a new experience. Product-led brand positioning: it demonstrates that IKEA makes life simpler through something people can actually use. Friction removal: turning a recipe into fill-in-the-blanks lowers the effort barrier. Cook This Page shows that a brand can say it makes life at home easier most convincingly by actually making something easier, and the product of the campaign was the proof of the promise."
   },
   {
     id: 4,
-    name: "Campaign 04",
-    brand: "Placeholder Brand 04",
-    year: "2004",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 04 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 04."
+    name: "Those Few People",
+    brand: "NESCAFÉ Gold",
+    year: "2017",
+    image: "images/campaign4.jpg",
+    video: { id: "ls0UVO_mJt0", start: 0, end: 90 },
+    summary: "In 2017 NESCAFÉ Gold relaunched with a 90-second film that whittles a crowd of everyone a man has ever met down to the handful who truly know him, introducing the line For the Moments That Matter.",
+    psychology: "The film's core lever is scarcity. We usually think of scarcity in terms of products, but here it is applied to relationships: out of tens of thousands of people, only a few truly matter, which makes those few feel more precious. It also relies on the self-referencing effect, arguably its strongest mechanism, because each question, like do you know my nickname or have you seen me cry, quietly prompts viewers to run the same test on their own lives. There is a note of nostalgia too, as the ad touches on friends we have lost touch with and then offers a simple, low-effort way back: have a coffee. It is a gentle reminder to reconnect rather than guilt-based persuasion, and through emotional transfer the warmth of that reunion becomes associated with NESCAFÉ Gold itself. These are explanations of why the film could resonate, not findings from published audience research.",
+    storytelling: "The structure is essentially a funnel. It opens with overwhelming scale, a full amphitheatre, and narrows with each question until only a handful of faces remain, and that steady reduction builds tension and makes the final moment land. The questions do the narrative work, each moving from surface to depth, from knowing a name to having seen someone cry, so the film charts the layers of intimacy without any exposition. The product is held back until the end, because coffee is not the hero of the story but the excuse for the reunion, and that restraint lets the emotion breathe. The setting adds weight, since an ancient Roman theatre gives the scene a sense of timelessness and scale, suggesting that the need for close bonds is as old as humanity.",
+    positioning: "Instant coffee has a perception problem, often seen as the functional, cheaper option next to café coffee, and the relaunch tackled that on two fronts with an upgraded product and an emotional repositioning. In the UK, Nestlé backed what trade press called the brand's biggest rebrand yet with a reported £7 million investment, covering a reformulated blend (Arabica beans ground ten times finer), a taller jar with a champagne gold lid across 27 products, and supporting marketing. The line For the Moments That Matter moves NESCAFÉ Gold from a caffeine fix to the coffee you share with people who matter, and attaching the product to rare, meaningful moments is a way of justifying a premium choice. The campaign linked the care people put into relationships with the care that goes into making a cup of NESCAFÉ Gold, which is the bridge between the emotional film and the product story.",
+    culturalRelevance: "The film arrived at a moment of growing public conversation about whether social media had left people with many connections but few close friends, and commentators at the time read the ad as a gentle critique of collecting online friends instead of nurturing real ones. NESCAFÉ had explored this territory before: a few years earlier, NESCAFÉ France and Publicis Conseil ran Really Friends?, a real-world experiment in which a Facebook user tried to meet his online friends over coffee, and Those Few People takes that idea into a scripted, cinematic form. The theme is also universal, because losing touch with people you once cared about is a near-universal experience, which helped the film travel across European markets and later to Australia and New Zealand.",
+    execution: "The centrepiece was the 90-second Those Few People film, launched first in the UK on TV, in cinemas and online, while shorter product-focused spots carried the relaunch message about the new recipe and packaging. The campaign was built to travel. After the UK it rolled out across Europe as part of NESCAFÉ Gold's regional relaunch, and in 2018 the emotional platform was extended to Australia and New Zealand through a locally developed campaign called When Taste Matters, with Publicis Groupe's Sydney team building two new TV commercials, influencer content, outdoor advertising reaching commuters, and NESCAFÉ Gold pop-up cafés with in-store baristas. One clarification matters: despite often being described as a social experiment, this is a scripted, directed film, not a documented experiment with real acquaintances, and it was shot in the ancient Roman theatre in Plovdiv, Bulgaria, so the experiment is a storytelling device. According to the campaign's Cannes Lions submission, the film reached 53 million people across markets on YouTube. No published sales or brand-tracking figures tie the film to relaunch performance, so its impact is best described through reach rather than proven business results. A fair critique is the biggest risk with emotional storytelling: a weak link to the product, since the coffee could be swapped for almost any shared drink. Some reader comments on the Australian trade site Mumbrella made exactly this point, though comments are anecdotal rather than representative research. The 80,000 figure also deserves care, since it is the brand's estimate used as a creative premise without a cited scientific source.",
+    importantInsights: "Scarcity applied to relationships: turning a big number into a tiny remaining group makes close bonds feel precious. Self-referencing: each question pulls viewers into running the test on their own lives. Emotional transfer: coffee appears as the reason to reconnect, so the warmth of the reunion attaches to the brand without the product interrupting the story. Emotion supporting premiumisation: NESCAFÉ was not only saying its coffee tasted better, it was making the coffee feel worthy of life's most meaningful moments. Those Few People shows how a brand can turn a statistic into a feeling, selling the moment the coffee makes room for, which is exactly the job a premium relaunch needed."
   },
   {
     id: 5,
-    name: "Campaign 05",
-    brand: "Placeholder Brand 05",
-    year: "2005",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 05 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 05."
+    name: "Raho Umarless",
+    brand: "Cadbury Gems",
+    year: "2012",
+    image: "images/campaign5.jpg",
+    summary: "In 2012 Cadbury Gems convinced grown-ups they were never too old for colourful chocolate buttons with the Museum film, in which a single blue Gem brings down a whole sculpture.",
+    psychology: "The campaign's core psychological move is giving permission. Many adults still enjoy childish treats but feel faintly embarrassed about it, and Raho Umarless reframes that impulse as something to embrace rather than hide. It taps nostalgia too, because almost everyone who grew up with Gems remembers having a favourite colour, and by building the film around that specific shared memory the ad triggers instant recognition. The film also plays on the tension between self-control and desire: a museum is a place of restraint where you look but never touch, and watching a respectable adult lose that battle over a single chocolate button is funny because most viewers have felt the same pull. Finally, there is a cue of harmless rebellion, since the man knowingly breaks an adult rule and chooses the treat anyway, which makes the brand feel like a small, safe act of defiance against grown-up seriousness. These are explanations of why the ad could resonate, not findings from published consumer research.",
+    storytelling: "The story is built on contrast. The setting is hushed, refined and adult, while the temptation is bright, playful and childish, and putting the two side by side creates the comedy before anything even happens. The pacing is patient, as the camera lingers while the man notices the sculpture, hesitates and finally reaches out, so tension builds steadily. The payoff, a single tug that brings the whole artwork down, is a classic comic escalation of a tiny action with a huge consequence. The ending completes the character arc: caught in the act, the man does not apologise but eats the Gem with a sheepish grin, the most childlike response possible, and the line No umar for favourite colour lands as the punchline. The story needs almost no dialogue, and its humour is visual and universal, which makes it easy to understand and remember.",
+    positioning: "Before 2012, Gems was widely seen as a children's brand. Ogilvy's Abhijit Avasthi explained the problem at launch: the perception was kids only, yet adults would happily eat from a bowl of Gems, so the task was to widen the audience without losing the core. The solution was smart, because instead of abandoning childhood the campaign redefined it. Gems was not for kids; it was for the kid inside everyone, which kept the brand's playful, colourful personality intact while giving adults a reason to buy it for themselves. Cadbury framed it the same way, with its director of snacking and strategy saying at launch that the brand had a strong connection with both kids and adults and resonated with child-like freedom, and Umarless became the single idea that held both audiences together. The commercial context explains why: a May 2012 Business Standard report described Cadbury-Kraft, which held a little over 70 percent of India's chocolate market at the time, as trying to up-age several brands beyond kids, including Eclairs and 5 Star, to broaden consumption. The campaign attempted to broaden the brand's consumer base, and the public record does not show how many adult buyers it actually added.",
+    culturalRelevance: "The coinage Umarless is a big part of the campaign's cultural fit. Blending the Hindi word umar, meaning age, with the English suffix -less reflects the Hinglish that urban Indian audiences actually speak, making the line feel natural and catchy. The idea also echoed a broader shift in Indian advertising at the time, as brands were increasingly speaking to young adults in playful, nostalgic tones rather than formal grown-up ones, and a 2026 exchange4media retrospective credits the campaign with capturing that mood. It also sits within a Cadbury tradition, since the brand's advertising in India had long celebrated small, unguarded moments of joy, so a grown man losing his composure over a Gem felt on-brand.",
+    execution: "The Museum film is a lesson in simplicity. There is no celebrity, no elaborate effects and almost no dialogue: one setting, one character, one prop and one action carry the whole idea, and the sculpture of Gems doubles as both the product shot and the comic device. The casting supports the idea, with Vikram Kochhar playing an everyman who is respectable enough that his slip is funny and ordinary enough that viewers see themselves in him. The bigger execution story was the longevity of the platform. Raho Umarless extended into Gems Surprise television campaigns featuring collectible toys, starting with the Doctor Panda film from O&M Bangalore in late 2012, then colour-changing pandas and a Justice League superhero collectibles campaign in 2014. Ogilvy also made animated cricket-themed films under the line, and other agency partners took the platform into new formats, with the cricket-and-colour outdoor campaign created with Bates. The Museum film launched alongside a companion spot in which a woman on a park bench finds a Gem in the grass, then a growing pile of them, and ends up lying over the heap to protect it, signing off with No umar for laalach, or no age for greed. Ogilvy India created both, and the campaign went on air in mid-2012. A 2026 exchange4media retrospective says sales expanded beyond children, but it cites no figures or research, so no published sales or brand-tracking data confirms how much the campaign shifted the brand's audience. A fair critique is that industry opinion was divided from the start. When afaqs reviewed the launch in June 2012, R K Swamy BBDO's Gautam Pandit called the Museum film his favourite of the two and praised its setting and execution, but Rediffusion-Y and R's Vikram Dhaliwal argued that, unlike Cadbury Dairy Milk's work, Gems simply asked adults to act like kids without giving them a real reason, calling it wishful rather than effective advertising. That critique is worth taking seriously, because the film is charming and memorable but its adult appeal rests on nostalgia and humour rather than a new role for the product in adult life, so the idea works best as permission and less well as persuasion.",
+    importantInsights: "Reframing, not abandoning: instead of dropping its childhood associations, the brand redefined childhood as a mindset, widening the audience without losing its identity. A specific, shared memory: the favourite-colour insight is small and concrete, which makes it instantly recognisable. Contrast as comedy: a refined adult space plus a childish temptation creates humour before a word is spoken. A repeatable creative device: No umar for is more than a tagline, and phrases like No umar for favourite colour, No umar for laalach and No umar for toys let the brand introduce new childish behaviours without re-explaining its positioning each time. The Museum ad is a good example of repositioning through permission rather than persuasion. Gems did not need to convince adults that chocolate was good; it needed to make them feel that enjoying something associated with childhood was perfectly acceptable, and the brand did not become a grown-up chocolate so much as tell grown-ups they were allowed to stay a little bit young."
   },
   {
     id: 6,
-    name: "Campaign 06",
-    brand: "Placeholder Brand 06",
-    year: "2006",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 06 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 06."
+    name: "A Brand You Can Hum",
+    brand: "Airtel",
+    year: "2002",
+    image: "images/campaign6.jpg",
+    summary: "In 2002 Airtel signed A.R. Rahman and asked him for a tune, creating one of India's most recognisable pieces of sonic branding, a short melody that went from a TV ad to millions of phones and caller tunes.",
+    psychology: "Sound is one of the most powerful memory cues a brand can own. A short, distinctive melody, heard again and again, becomes linked to a brand so tightly that hearing it brings the brand to mind without any logo, and Airtel's tune is a textbook case of this kind of sonic association. The ringtone strategy multiplied that effect, because every time a customer's phone rang with the Airtel tune the brand was being advertised in public by its own users, so people were not just hearing the ad but choosing to carry it around. Rahman also brought credibility and affection, since by 2002 he was one of India's most celebrated composers, and his association lent the brand creativity, warmth and national pride. Finally, the melody itself carries emotion, gentle and slightly wistful rather than loud and salesy, which helped it outlive the ad that introduced it. These are explanations of why the tune could have worked, not findings from published research on the campaign.",
+    storytelling: "The film's story is a neat dramatisation of the product benefit. A tune is born in a moment, at an airport, and survives because a mobile phone carries it to the studio and on to the concert, so the phone is not a gadget in the story but what lets creativity travel. The narrative also shows Rahman's process, as viewers watch a famous musician improvise, record and collaborate with strangers, which turns the ad into a small behind-the-scenes music story rather than a product demonstration. The arc moves from intimate to grand: a single harmonica for one crying child, then street musicians, then a full concert. That build mirrors the tune's own journey from a small idea to something enormous and gives the film a satisfying emotional payoff. Rahman described it as the first ad film with so many different genres of music in it, and that variety is part of the story of one melody carried across styles and places.",
+    positioning: "In 2002, mobile networks mostly competed on coverage, tariffs and call quality, and Airtel used the Rahman campaign to step outside that functional race. Live Every Moment positioned the phone, and the network, as part of life's emotional moments rather than just a utility. Rahman fitted the brand Airtel wanted to be, and Airtel's marketing director at the time described him as an almost perfect mirror of the brand: international, a leader, young, dynamic and innovative. Linking a network to India's most admired composer signalled ambition and quality. The tune also gave Airtel a distinctive brand asset in a category where services looked similar, because competitors could match a tariff but not a melody millions of people already recognised, and Airtel kept that asset for years, re-orchestrating it many times to suit different campaigns.",
+    culturalRelevance: "The timing was ideal. Mobile phones were spreading quickly in India in the early 2000s, and personalising your phone with a ringtone was becoming part of everyday culture, so a melody people could download and carry turned a TV ad into something people lived with. Music is also central to Indian popular culture, and Rahman was at the height of his fame, so his association brought instant cultural weight and the brand was not borrowing a jingle so much as borrowing one of the country's best-loved musical voices. The tune went on to live beyond advertising: in 2008 Business Today reported that an Airtel executive had come across a van in Chhattisgarh using the tune as its reverse-gear horn, and today it is widely shared as a piece of collective nostalgia. That kind of everyday reuse is rare evidence of a brand asset entering popular culture.",
+    execution: "The execution worked on two levels. The TV film introduced the tune with a story, and the mobile network then put it into people's hands. Backing was substantial: agencyfaqs reported an allocated budget of Rs 100 crore in 2002, and Rediffusion's Sandeep Goyal later recalled that Sunil Bharti Mittal was so taken with the ad that he sanctioned a huge media spend. On 25 October 2002, Airtel released five exclusive ringtones composed by Rahman for its roughly 2.3 million customers to download, backed, according to a contemporary report, by a one-year contract rumoured at Rs 1 crore. The launch film was directed by Rahman's longtime friend Rajiv Menon for Rediffusion and shot in Chennai and London, debuting on 30 August 2002. In a September 2002 Business Standard interview, Rahman said the ad was based on something that had actually happened to him, chancing upon a tune and playing it back to his studio over a mobile phone, and he later said the melody itself was unplanned, though the airport-to-London-to-concert sequence is the commercial's dramatisation rather than a literal record of events. Rahman appeared as a character rather than a conventional endorser, and the ad used no actors. Over the years the tune was re-orchestrated many times to fit new campaigns and moods, from Live Every Moment to Express Yourself and beyond, which kept the asset fresh without losing recognition. A fair critique is that the headline claim needs care, since world's most downloaded ringtone comes from Airtel itself and the company's numbers have changed dramatically across years and reports, with no independent global ranking supporting the superlative, so the defensible version is that the melody became one of India's most recognisable mobile tunes. The business impact is also hard to isolate, because Airtel grew enormously in the 2000s but so did India's entire mobile market, and director Rajiv Menon has said the brand's share rose quickly after the launch, though that is a recollection rather than published data. Celebrity-led sonic branding also carries a dependence risk, since much of the tune's charm is tied to Rahman's name.",
+    importantInsights: "Sonic branding: a short, distinctive melody becomes a brand asset you recognise without seeing a logo. Distribution through the product: ringtones turned customers' phones into the campaign's media, so every incoming call was a small ad. Borrowed credibility: Rahman's stature lent the brand creativity, warmth and national pride. A story that dramatises the benefit: the film shows a mobile phone carrying a moment of creativity across places and people. A flexible, long-lived asset: re-orchestrating the tune let Airtel refresh campaigns for years without losing recognition. The most successful sonic branding does not just make people remember a brand's sound, it makes them want to hear it again and again even when no ad is playing, and by pairing a beloved composer with a medium people carried in their pockets, Airtel turned a 2002 ad into a sound customers chose to own."
   },
   {
     id: 7,
-    name: "Campaign 07",
-    brand: "Placeholder Brand 07",
-    year: "2007",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 07 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 07."
+    name: "Protein Ke Peeche Kya Hai?",
+    brand: "The Whole Truth",
+    year: "2025",
+    image: "images/campaign7.jpg",
+    summary: "In September 2025 The Whole Truth parodied a famous Bollywood song to ask what is really inside the protein tubs Indians buy, building a category-challenger position on radical ingredient transparency.",
+    psychology: "The campaign activates a doubt many consumers already have. Protein powders are often sold in big, intimidating tubs covered in technical claims, and a lot of buyers quietly wonder what is in them, so by asking the question out loud the ad validates that suspicion rather than creating it. That doubt had real grounding: a 2024 study published in Medicine, the Citizens Protein Project, analysed 36 protein supplements sold in India and found that 25 of them, or 69.4 percent, contained less protein than advertised, five were contaminated with aflatoxins, and the researchers also found heavy metals and raised concerns about possible amino-spiking in certain products, though the study did not prove widespread deliberate amino-spiking and its findings should not be generalised to every protein brand in India. Once it has raised the worry, the ad resolves it, and the founder's appearance offers a trusted human voice with a simple rule of thumb that too many labels is a warning sign. Humour lowers resistance too, because a parody of a famous song makes a potentially preachy message about additives feel playful, so viewers are more likely to watch, share and remember it. These are explanations of why the campaign could work, not findings from published research on it.",
+    storytelling: "The choice of song was not incidental. Choli Ke Peeche Kya Hai is built around a teasing question about what lies behind something, and the parody keeps the familiar musical hook and the question but changes its meaning: instead of what is behind the clothing, it asks what is behind the protein powder, borrowing cultural recognition to introduce an entirely new consumer question. The visuals exaggerate the category's clichés, with bodybuilders bursting out of a giant tub playing up the muscle-gain imagery protein brands usually rely on, and that is the setup. The founder is the punchline. When Mehta steps in, the tone shifts from spectacle to plain talk, and the brand's promise lands as the honest answer to the song's question. Ending on the founder also reinforces the brand's personal, no-nonsense voice, which recurs across its advertising.",
+    positioning: "Most protein marketing sells outcomes like muscle, strength and transformation, but The Whole Truth sells the opposite of a promise: an absence of hidden ingredients, so its positioning is less about what the product will do for you and more about what it will not hide from you. That makes the brand a challenger to the whole category's conventions, and Storyboard18's weekly review noted that the ad used no celebrity, no shirtless torso and no before-and-after shots, the visual shorthand most protein brands lean on, so rejecting those codes is itself a positioning statement. The campaign also widens the audience. As afaqs put it, the parody makes sure protein powders are discussed not just in gyms but in living rooms, and framing protein as something ordinary people can trust invites everyday consumers into a category many found intimidating, which supports the brand's premium pricing because buyers pay for certainty as much as for nutrition.",
+    culturalRelevance: "The song choice gives the ad instant recognition, since Choli Ke Peeche Kya Hai is one of Bollywood's most famous and talked-about songs, so the twist registers in a second, which is exactly what a scroll-stopping social ad needs. The timing was right too, as protein was appearing in everything from biscuits to bottled water, and afaqs cited a Mordor Intelligence estimate putting the Indian protein market at 1.52 billion dollars in 2025, projected to reach 2.08 billion by 2030. Authenticity had become a live concern after studies questioned labelled protein content, and Open magazine noted that clean, honest-positioned startups were gaining popularity despite their price premium. The campaign also fits a broader pattern of challenger brands using satire to call out category norms. Months later, in February 2026, The Whole Truth followed up with an ad satirising kids' food brands, showing that calling out the category had become a repeatable brand behaviour rather than a one-off stunt.",
+    execution: "The campaign centred on a single ad film released across social media on 17 September 2025, a natural fit for a digital-first D2C brand. The production, by Footloose Films with director Indrasish Mukerjee and conceptualised by Manja Brandworks, leaned on spectacle (a giant tub, dancing bodybuilders, a familiar beat) to earn attention in a crowded feed, then used the founder to deliver the message in a plain, credible voice. The founder-led approach is consistent with the brand's wider communication, since Mehta's personal story, a weight-loss journey that exposed him to misleading healthy labels, is central to The Whole Truth's identity and his on-screen presence ties the ad to that origin. The film won recognition including a Baby Blue Elephant at the Kyoorius Creative Awards 2026 plus First List recognitions, was picked as a standout in Storyboard18's weekly Mast and Meh review, and was cited by afaqs months later as a talking point in protein marketing, though no campaign-specific sales, reach or engagement figures have been published, so these establish creative recognition rather than commercial effectiveness. A fair critique is that a brand that sells radical honesty is held to a higher standard, and the brand has faced scrutiny on exactly that front: Open magazine noted the irony that it was itself in a small controversy when its Cranberry Protein Bar was found to contain candied cranberries with added sugar, and a design-agency analysis reports that the Advertising Standards Council of India required the brand to remove certain unsupported claims, such as calling its protein the cleanest and most digestible on earth, though that report is secondary and the ruling is not linked to this specific film. The contrast-led framing carries risk too, because implying that the rest of the category is hiding chemicals is a strong claim that works as satire but invites competitors and regulators to check whether the brand's own claims are equally watertight, and parody depends on the source, since the ad's instant recognition comes from someone else's famous song, which makes the idea memorable but less ownable than a brand-built asset.",
+    importantInsights: "Naming a shared suspicion: the ad voices a doubt consumers already had, so it feels like the brand is on their side. Contrast without naming rivals: challenging the whole category's conventions defines the brand clearly while avoiding a direct attack. Cultural shorthand: a famous song makes the question instantly recognisable and shareable. Founder as proof: ending with the founder turns a brand claim into a personal promise. Reframing the category, not just the brand: most protein brands sell muscle, strength and recovery, while this one changes the question to ask what else you are consuming before how much protein you are getting, which also moves protein from the gym into everyday life. The Whole Truth did not compete by promising a better protein powder, it challenged consumers to question the entire category before buying, turning scepticism into a competitive advantage, but it also shows the cost of that strategy: once you build a brand on telling the whole truth, every claim you make has to survive the same scrutiny you invite on others."
   },
   {
     id: 8,
-    name: "Campaign 08",
-    brand: "Placeholder Brand 08",
-    year: "2008",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 08 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 08."
+    name: "The Travelling Dukaan",
+    brand: "Anu Merton",
+    year: "2020",
+    image: "images/campaign8.jpg",
+    summary: "Anu Merton built her jewellery brand around the founder herself, and the Travelling Dukaan, a recurring series in which she roams a city's jewellery lanes and sells her finds through Instagram stories, is its flagship execution.",
+    psychology: "The brand's core lever is intimacy. Anu Merton handles much of the social media herself, and in her Patna edition post she mentioned she was still solo-handling social media and customer queries, so the voice is casual and personal and following the brand feels like following a friend with excellent taste rather than a company. The Nod described this as an anti-perfection, so-casual-it-is-cool approach, while noting it is carefully thought out and draws on her years as a stylist, which is a key insight: the effortlessness is designed, and imperfect, lived-in visuals feel more trustworthy than a glossy campaign because they look like real life. The Travelling Dukaan adds the thrill of discovery, as followers watch her hunt through small shops and trinket-laden lanes and then see the finds appear one by one. Scarcity sharpens the urge to act, and it is genuine rather than manufactured, since many Dukaan pieces are antiques or one-offs that cannot be remade, unlike a countdown timer, and pieces that can be remade carried a stated four-to-five-week turnaround. Curation works as a trust mechanism too, because customers are outsourcing discovery to someone whose taste they admire, so the founder's eye is part of what is being sold. These are explanations of why the model could work, not findings from published research on the brand.",
+    storytelling: "The brand rarely presents a piece as just a product. Merton writes long, personal blog posts for each edition, mixing travel diary, memory and opinion, and the Patna edition, for example, is a love letter to Bihar, its contradictions and her pride in being a Bihari woman. Her design inspiration feeds the same storytelling, since she has said that poetry, Faiz and Rumi in particular, along with nature, people and movement, often spark new pieces, and that the everyday beauty of small-town India shapes her eye. The Dukaan format is a story in itself: each edition has a setting (a city), a narrator (Anu) and a quest (finding beautiful things in small shops), told in real time through stories, so followers are not just shopping, they are travelling along.",
+    positioning: "Anu Merton occupies an interesting middle ground. The styling feels aspirational, with The Nod noting that her feed offers glimpses of designer bags and shoes such as Saint Laurent, Jimmy Choo and Manolo Blahnik worn alongside sheer white kurtas and heirloom-style jewellery, yet the brand's own stated mission is accessible, and she has written that the brand's only ad copy describes her as a Bihari woman who wants to make affordable handmade Indian jewellery popular. That tension is the positioning: the brand borrows the mood of luxury through styling, packaging and restraint while selling handmade Indian jewellery at prices meant to reach more people. Quiet luxury is a fair reading of its visual presentation, though that is an interpretation rather than the brand's official positioning, and Merton's own stated philosophy centres on handmade Indian jewellery, everyday wearability and regional craftsmanship. The visual identity, designed by the Pallavi Nopany studio, deliberately avoids clichés like florals and paisleys to signal Indian-ness, on the logic that the product, setting and styling already make that obvious, and instead uses a nostalgic AM monogram, modern sans-serif type, soft colours and delicate lines. It also draws on historical Indian art, with her website portrait made in the style of Sheikh Mohammad Karraya, an 18th-century artist trained in the Patna style, to show her Bihar roots, and Rajasthani miniature elements inside the packs pointing to Jaipur.",
+    culturalRelevance: "The brand rides a broader shift towards handmade in India and pride in regional identity. Merton's message is explicitly about not toning down Indian-ness, and she told The Nod she is happy to wear a chiffon sari and Indian jewellery to a club. Regional pride is central, especially Bihar, a state she writes about with both love and frustration, and championing a region that is rarely seen as a style reference gives the brand a distinctive, personal point of view. The Travelling Dukaan also emerged from a specific cultural moment: in late 2020, with travel restricted and tourism collapsed, it connected locked-down shoppers with karigars and small jewellers who had lost their customers, and that origin gave the series purpose beyond commerce.",
+    execution: "The mechanics are simple but deliberate. Before each edition, every piece is listed on the website's Travelling Dukaan page, and as Merton moves through shops she posts each find on Instagram stories with a product code and price, with later editions also linking directly. Followers enter the code on the site to buy, or email the team with a screenshot if they cannot find it. Product pages say whether a piece can be remade; ready pieces ship after a quality check from Jaipur, often within two days, while remade pieces take about four to five weeks. Each edition is framed by a personal blog post, which turns a sales drop into a piece of content with its own story, and behind the scenes Merton has noted the amount of tech, operations and coordination involved, supported by a small team she described as eight people in Jaipur in a 2023 interview. Anu Merton started the eponymous brand in late 2019 with her husband Ben Merton, who built the website, and the jewellery is made with karigars in Jaipur, Jodhpur and Patna. The Travelling Dukaan began in September 2020 on her first trip to Jaipur after the lockdown, and by 2023 it had reached its eleventh edition, with themed editions in Jaipur and Bihar, and the brand earned press recognition from Vogue India, Homegrown and The Nod, which headlined her as Instagram's favourite jeweller, though no sales, revenue, follower or sell-through figures have been published, so claims of a cult following are best treated as impressions rather than measured outcomes. A fair critique is that anti-marketing is not the absence of marketing, since the brand does run ad copy by Merton's own account, earns press features and invests in a professionally designed identity, so what it avoids is the conventional look of marketing rather than marketing itself. The model is also heavily founder-dependent, because the voice, styling, travel and curation all centre on one person, which creates intimacy but makes the brand hard to scale and vulnerable if the founder steps back, and Merton has acknowledged handling social media solo for long stretches and an eight-month gap between two editions. The buying flow has friction too, since noting codes, searching a website and emailing for missing links works for devoted followers but may lose casual shoppers, and because many Dukaan pieces come from third-party jewellers, quality and authenticity depend on her curation, with the gold and silver in the Patna edition stressed as hallmarked.",
+    importantInsights: "Founder as the brand: personal taste and a conversational voice become the competitive advantage. Authenticity through designed imperfection: lived-in visuals feel intimate, but they are carefully built on styling expertise. Scarcity through curation: genuine one-off pieces create natural urgency, and the founder's eye becomes a reason to trust. Content-commerce integration: each edition doubles as a travel story and a shop, so the marketing and the commerce are the same thing. Community through recurring ritual: followers anticipate the next city, follow the discoveries, compete for limited pieces and return for the next edition, joining a recurring discovery experience. Identity that lets the product speak: the design studio deliberately did not make the identity overtly Indian, because the products, styling and imagery already do, so the identity complements the product rather than competing with it. Anu Merton does not just sell jewellery, she sells her eye for finding it, and the Travelling Dukaan turns personal taste into a commercial product and shopping into a shared ritual, which makes the founder the most distinctive part of the brand while also being its biggest constraint as the brand grows."
   },
   {
     id: 9,
-    name: "Campaign 09",
-    brand: "Placeholder Brand 09",
-    year: "2009",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 09 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 09."
+    name: "The Royal Art of Gifting",
+    brand: "Kama Ayurveda",
+    year: "2026",
+    image: "images/campaign9.jpg",
+    summary: "For Diwali 2026 Kama Ayurveda returned with its festive platform The Royal Art of Gifting, inspired by Rajasthani Leheriya and by Ayurvedic beauty rituals passed down through generations, and led by ambassador Princess Gauravi Kumari of Jaipur.",
+    psychology: "The campaign's main lever is nostalgia. Many Indian consumers grew up with a grandmother or mother oiling their hair or mixing home remedies, so framing Ayurvedic products as continuations of those family rituals turns a purchase into an act of keeping a tradition alive. Gauravi Kumari has spoken in these terms herself, describing in her launch interview with The Nod the oils and remedies of her childhood as rituals of care and connection passed down through generations, and saying modern brands let her honour that legacy while gaining convenience, which gives the theme a personal anchor. Royal association adds aspiration, since a princess of Jaipur signals refinement, heritage and exclusivity that helps justify premium pricing, yet she is also a young woman in her twenties, which makes the heritage feel contemporary rather than dusty. The campaign also trades in cultural capital, because Leheriya, Jaipur's royal heritage and Ayurveda are not just decoration but lend the products meaning that supports a luxury price point. Gifting psychology matters too: at Diwali people want gifts that feel meaningful rather than generic, and a beautifully packaged set tied to tradition lets the giver signal thoughtfulness and good taste. These are explanations of why the campaign could work, not findings from published research on it.",
+    storytelling: "The narrative centres on inheritance. Beauty rituals are presented as something passed from one generation of women to the next, with Kama Ayurveda as the modern custodian of that knowledge, and the brand's social content builds on this idea of care handed down within families. Leheriya is a fitting visual metaphor: historically it is a Rajasthani resist-dye technique in which fabric is rolled diagonally, tied and dyed to produce wave-like diagonal stripes, and the name comes from leher, meaning wave. Its main centres include Jaipur, Jodhpur and Udaipur, it has traditionally been used for turbans, saris and odhnis, and royal houses once had their own signature leheriya colours and patterns, a link that suits a royal ambassador. Reading the waves as traditions flowing between generations is the campaign's interpretation rather than part of the craft's history. Hair oiling is a natural hero ritual for this story, since it is one of the most widely shared family beauty memories in India, and Gauravi Kumari told Esquire India that she relies on the brand's Bringaras scalp and hair oil, which the Diwali edition of the Bliss Box includes as a gift with larger orders.",
+    positioning: "Kama Ayurveda sits at the premium end of Ayurvedic beauty, competing as much with international luxury skincare as with other Ayurvedic brands, and the campaign reinforces that position by presenting Ayurveda as a heritage worth gifting rather than a home remedy or a budget alternative. The ambassador choice supports a deliberate repositioning of heritage modernisation: the brand is not asking consumers to return to a fully traditional lifestyle but making traditional rituals relevant through contemporary formulations, packaging and gifting formats, so for younger buyers the message is essentially that you can inherit the ritual without inheriting the whole lifestyle. In the 2025 Royal Art of Gifting reveal, the brand framed the campaign as sharing India's cultural codes with the world and elevating Ayurveda as living heritage. The repeated campaign name also builds a seasonal asset, since running The Royal Art of Gifting two Diwalis in a row while refreshing the craft theme each year gives the brand a recognisable festive property it can renew annually.",
+    culturalRelevance: "Diwali is India's biggest gifting season, which makes it the natural moment for premium beauty gift sets, and the campaign taps the festival's themes of family, tradition and togetherness. It also rides a broader revival of interest in Ayurveda and traditional rituals among younger urban consumers, a shift beauty media such as Tweak India have noted as Ayurvedic brands modernise their formulations and packaging. The brand does have craft credentials beyond aesthetics, since Kama Ayurveda and Gauravi Kumari's Princess Diya Kumari Foundation, which works with women artisans in Rajasthan, have collaborated under the brand's Kama Cares social-impact platform, though that collaboration is separate from this campaign: the 2026 Leheriya theme is documented as craft-inspired packaging and visuals, not an artisan-led project.",
+    execution: "The campaign's commercial heart is the festive gifting range. The brand's gifting page groups hero products, such as its Kumkumadi creams, serum and glow sets, under the Royal Art of Gifting banner with Leheriya-inspired festive presentation. The campaign is backed by tiered gift-with-purchase offers running from 21 October 2026: larger orders unlock a Diwali-edition Kama Bliss Box of body, hair and scalp minis, and the top tier adds a Kama Ayurveda Diwali Leheriya table runner, a keepsake that extends the craft theme into the home. Content ran primarily on the brand's social channels, led by Gauravi Kumari, with coverage amplified by trade media such as exchange4media. Kama Ayurveda was founded in 2002 by Vivek Sahni, and Spanish beauty group Puig, a minority investor since 2019, took majority control in September 2022, raising its holding to 85 percent; in April 2025 the brand refreshed its identity and stores and named Gauravi Kumari, a member of Jaipur's former royal family, as its new face in a move The Nod described as aimed at Gen Z. The platform is not new, since The Royal Art of Gifting also ran for Diwali 2025 using Jaipur's royal heritage and gift boxes inspired by palace florals, and the 2026 edition keeps the name and the ambassador while swapping the visual theme to Leheriya, turning the campaign into a recurring festive property, though no sales, reach or engagement figures for the 2026 campaign have been published. A fair critique is that the ambassador's reach cuts both ways, because in the same festive season Gauravi Kumari also fronted Forevermark's Diwali campaign again framed around Jaipur heritage, and when one face carries similar heritage stories for several brands at once each brand's distinctiveness can blur. There is a tension in the core message too, since the campaign celebrates rituals passed down in ordinary families yet frames them through royalty, which lends aspiration but risks making a universal everyday tradition feel exclusive. The craft reference is also worth examining, because Leheriya is traditionally worn for the spring festivals of Holi and Gangaur and the monsoon festival of Teej rather than Diwali, so its use here is more aesthetic than seasonal, and there is a potential gap between heritage storytelling and actual craft contribution, so unless Kama confirms that Leheriya artisans made the packaging or benefited from it, the campaign is best described as craft-inspired rather than artisan-led. Finally, tried, tested and celebrated by royalty is an endorsement claim rather than product evidence.",
+    importantInsights: "Nostalgia as value: linking products to family rituals turns skincare into something worth keeping and passing on. Cultural capital: craft, royal heritage and Ayurveda give the products meaning that supports a luxury price. Heritage modernisation: a young royal and contemporary formats let buyers inherit the ritual without the whole lifestyle. Craft as visual metaphor: Leheriya's waves echo the idea of traditions flowing between generations. A renewable festive platform: keeping the name while refreshing the craft each year builds a seasonal asset. Gifting mechanics that extend the story: gift-with-purchase keepsakes like the Leheriya table runner carry the campaign into people's homes. Kama Ayurveda is selling more than a skincare gift set, it is selling the feeling of inheriting something meaningful, and by connecting a beauty ritual, a regional craft and a royal ambassador it turns an everyday product into an expression of cultural identity, with the challenge being to keep that story distinctive and grounded when similar royal, heritage-led imagery is shared across the festive market."
   },
   {
     id: 10,
-    name: "Campaign 10",
-    brand: "Placeholder Brand 10",
-    year: "2010",
-    image: "",
-    summary: "Placeholder one line summary for Campaign 10 goes here.",
-    psychology: "Placeholder analysis for psychology goes here.",
-    storytelling: "Placeholder analysis for storytelling goes here.",
-    positioning: "Placeholder analysis for positioning goes here.",
-    culturalRelevance: "Placeholder analysis for cultural relevance goes here.",
-    execution: "Placeholder analysis for execution goes here.",
-    keyTakeaway: "Placeholder key takeaway for Campaign 10."
+    name: "Trailer Show",
+    brand: "PVR INOX",
+    year: "2023",
+    image: "images/campaign10.jpg",
+    summary: "In April 2023 PVR INOX sold trailers for 1 rupee, inviting audiences to a 30-minute big-screen show of more than ten upcoming film trailers, the cinema equivalent of a free sample.",
+    psychology: "The 1 rupee price is the core lever. It removes nearly all financial risk, so the decision to go becomes easy, and a token price also works differently from free because it creates a real ticket and a commitment to show up while still feeling like a bargain. The idea borrows from product sampling, a staple of FMCG marketing, and Business Today noted that PVR INOX had borrowed a page from the FMCG playbook of offering samples, with the same logic that letting people try the experience means some will come back for the full product. It also plays on habit, because after the pandemic cinema-going had become less routine for many people, and a short, cheap visit reintroduces the ritual of the lobby, the big screen, the sound and the shared audience to occasional and potential moviegoers without asking for a big commitment. Finally, trailers create anticipation: each one is designed to make viewers want the full film, and showing ten or more back to back multiplies that effect, which is why PVR INOX positioned the show as a way to boost advance bookings. These are explanations of why the activation could work, not findings from published consumer research.",
+    storytelling: "The campaign's strongest story is a transformation: trailers move from advertising to entertainment. Normally they are promotional filler before a feature film, but here they become the feature, a standalone show audiences pay to see, so PVR INOX effectively monetised the audience's curiosity about upcoming releases even if the ticket price itself earned almost nothing. The show itself is a fast, curated sequence of genres, languages and moods, which the brand promoted as a way to experience a range of emotions in half an hour, and co-CEO Gautam Dutta said the chain wanted a mix of regional, Hollywood and Bollywood content tailored to each audience's language and tastes. The framing is snackable entertainment, with Dutta describing the show as a short, power-packed offering on the big screen, which positions a visit to the cinema as something you can fit into a busy day rather than only a three-hour commitment. The curation also tells a story about PVR INOX itself: a chain that knows what is coming next across Bollywood, Hollywood and regional cinema, and wants you to see it first.",
+    positioning: "The show's real product is the cinema experience itself. Trailers are freely available on phones and YouTube, so the only reason to pay is the big screen and the sound, and while the campaign did not explicitly position itself against streaming, it demonstrated the particular advantage of theatrical exhibition: the shared, large-format audiovisual experience, because the trailers were available elsewhere but the cinema made this version different. It also reinforces PVR INOX's position as an innovator rather than just a venue, since launching a world's first format shortly after the merger signalled that the combined company intended to shape how people watch films rather than just sell seats. There is a B2B dimension to the positioning too, because Dutta called trailers the most potent marketing material for driving footfalls and said the format could give big films a stronger opening and smaller, content-driven films a chance to be seen, which makes PVR INOX a promotional partner for studios rather than only a screen to rent.",
+    culturalRelevance: "The activation responded to a change in the cinema-going habit. After the pandemic, footfalls had not fully recovered and a visit to the cinema had become more of an occasion than a routine, so a low-cost 30-minute format lowered both barriers of price and time and made dropping into a cinema casual again. It also fitted how people use malls, since PVR INOX said the show was serving shoppers who had time to kill while waiting for friends, clothing alterations or a car wash, and that Mumbai responded most followed by Delhi and Bengaluru, which turns the cinema into an everyday mall activity rather than only a planned outing. The timing fit the release calendar as well, because Business Insider India reported that the show launched ahead of the crucial summer season with major films lined up for May and June, so it was designed to build anticipation right before a busy box-office period.",
+    execution: "The execution built on existing assets. PVR INOX already had the screens, projection and sound systems, ticketing and access to trailers, and the innovation was in packaging, programming and pricing, though that does not make it free to run since opening auditoriums, staffing and screening still cost money. The merged company had the scale and infrastructure to distribute the format across a large network, describing itself at the time as having 1,680 screens across 359 properties in 115 cities in India and Sri Lanka. Each show packed more than ten trailers into about 30 minutes, with slots at participating cinemas once or twice a day, and booking used the chain's normal channels of website, app and box office, so there was no new infrastructure to build. The studios took part as partners, and the two-sided value is central to the idea: Dutta said around 18 to 20 films release each week in India but cinemas can only play three or four trailers before each screening, so many films never get big-screen trailer exposure, and the show aimed to give big films bigger openings and mid-level, story-driven films a chance to be seen. Sony Pictures' India general manager Shony Panjikaran welcomed having trailers for Spider-Man: Across the Spider-Verse, Sisu and The Pope's Exorcist in the show, and Warner Bros Discovery's Denzil Dias cited Fast X and Evil Dead Rise. The Trailer Screening Show launched on 7 April 2023 at participating PVR and INOX multiplexes, with each 30-minute session featuring 10 to 12 handpicked Bollywood, Hollywood and regional trailers, and it excluded Andhra Pradesh, Telangana and Tamil Nadu, southern states where ticket prices are subject to state regulation. PVR INOX said about 35,000 people visited 360 cinemas over the first three days, and more than 2.5 lakh tickets were sold over the first 50 days, with a company-reported audience retention rate of more than 40 percent. A fair critique is that, at 1 rupee per ticket, 2.5 lakh tickets represent just 2.5 lakh rupees in gross ticket sales, so the economics cannot rest on ticket revenue and the strategic value would have to come from incremental food and beverage purchases, audience insights, future movie bookings and stronger studio relationships, none of which PVR INOX has quantified publicly. The scale is also modest, since a quarter of a million tickets over 50 days is a small fraction of a national multiplex chain's footfalls, making this more of a sampling and PR exercise than a footfall turnaround on its own. The product is replicable at home, because trailers are free online and the novelty of watching them in a cinema may fade after one visit, so the format works best as an introduction rather than something audiences return to every week, and world's first is the company's own claim and hard to verify.",
+    importantInsights: "Sampling the core experience: like an FMCG free sample, a 1 rupee trial lets people rediscover the big screen at almost no risk. A token price, not free: 1 rupee creates a real booking and commitment while still feeling like a giveaway. Marketing material turned into a product: trailers, already designed to create desire, become the attraction themselves. A two-sided platform: audiences get cheap entertainment while studios get big-screen promotion for upcoming films. Built from existing assets: screens, content and booking systems were already in place, keeping costs low. The trailer show shows how a business can market its core experience by selling a tiny, cheap version of it, and instead of telling people the big screen is better, it let them feel the difference for 1 rupee, with the open question being whether that taste translated into full-price tickets."
   }
 ];
 
@@ -738,24 +914,130 @@ function makePlaceholderImage(campaign) {
   const brand = escapeHtml(campaign.brand.toUpperCase());
   const svg =
     '<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">' +
-      '<rect width="1280" height="720" fill="#eceae4"/>' +
-      '<rect x="60" y="60" width="1160" height="600" fill="none" stroke="#b7b1a5" stroke-width="1"/>' +
-      '<line x1="60" y1="420" x2="1220" y2="420" stroke="#d7d2c9" stroke-width="1"/>' +
-      '<text x="640" y="350" font-family="Georgia, serif" font-size="54" letter-spacing="6" fill="#121212" text-anchor="middle">' + label + '</text>' +
-      '<text x="640" y="480" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="8" fill="#57524a" text-anchor="middle">' + brand + '</text>' +
-      '<text x="640" y="530" font-family="Helvetica, Arial, sans-serif" font-size="16" letter-spacing="6" fill="#c2185b" text-anchor="middle">IMAGE PENDING</text>' +
+      '<rect width="1280" height="720" fill="#ece1cd"/>' +
+      '<rect x="60" y="60" width="1160" height="600" fill="none" stroke="#c3ac91" stroke-width="1"/>' +
+      '<line x1="60" y1="420" x2="1220" y2="420" stroke="#dccbb4" stroke-width="1"/>' +
+      '<text x="640" y="350" font-family="Georgia, serif" font-size="54" letter-spacing="6" fill="#2b1d17" text-anchor="middle">' + label + '</text>' +
+      '<text x="640" y="480" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="8" fill="#6b5646" text-anchor="middle">' + brand + '</text>' +
+      '<text x="640" y="530" font-family="Helvetica, Arial, sans-serif" font-size="16" letter-spacing="6" fill="#6d1f2e" text-anchor="middle">IMAGE PENDING</text>' +
     '</svg>';
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
 /* ----------------------------- state ------------------------------------ */
 let currentIndex = 0;
+let ytPlayer = null;
+let ytLoopTimer = null;
+let pendingVideo = null;
+
+/* ----------------------------- youtube embed ---------------------------- */
+function destroyVideo() {
+  if (ytLoopTimer) { clearInterval(ytLoopTimer); ytLoopTimer = null; }
+  if (ytPlayer && typeof ytPlayer.destroy === "function") {
+    try { ytPlayer.destroy(); } catch (err) { /* ignore */ }
+  }
+  ytPlayer = null;
+  pendingVideo = null;
+}
+
+function fallbackToImage(c) {
+  const fig = document.querySelector("#campaignInner .campaign__media");
+  if (!fig) return;
+  fig.classList.remove("show-play");
+  fig.innerHTML =
+    '<img src="' + makePlaceholderImage(c) + '" alt="' + escapeHtml(c.name) + ', ' + escapeHtml(c.brand) + ', campaign image placeholder">' +
+    '<figcaption class="campaign__caption">' +
+      '<span>' + escapeHtml(c.name) + '</span>' +
+      '<span>Campaign Archive</span>' +
+    '</figcaption>';
+}
+
+function showPlayButton() {
+  const fig = document.querySelector("#campaignInner .campaign__media");
+  if (fig) fig.classList.add("show-play");
+}
+
+function initYouTube(c) {
+  const el = document.getElementById("ytPlayer");
+  if (!el) return;
+  ytPlayer = new YT.Player("ytPlayer", {
+    videoId: c.video.id,
+    playerVars: {
+      start: c.video.start,
+      end: c.video.end,
+      autoplay: 1,
+      mute: 1,
+      controls: 0,
+      modestbranding: 1,
+      rel: 0,
+      playsinline: 1,
+      loop: 1,
+      playlist: c.video.id
+    },
+    events: {
+      onReady: function (e) {
+        e.target.mute();
+        e.target.playVideo();
+      },
+      onError: function () {
+        fallbackToImage(c);
+      },
+      onStateChange: function (e) {
+        if (e.data === 1) {
+          const fig = document.querySelector("#campaignInner .campaign__media");
+          if (fig) fig.classList.remove("show-play");
+        }
+        if (e.data === 0) {
+          e.target.seekTo(c.video.start, true);
+          e.target.playVideo();
+        }
+      }
+    }
+  });
+
+  const playBtn = document.getElementById("ytPlay");
+  if (playBtn) {
+    playBtn.addEventListener("click", function () {
+      if (ytPlayer && typeof ytPlayer.playVideo === "function") ytPlayer.playVideo();
+      const fig = document.querySelector("#campaignInner .campaign__media");
+      if (fig) fig.classList.remove("show-play");
+    });
+  }
+
+  window.setTimeout(function () {
+    if (!ytPlayer || typeof ytPlayer.getPlayerState !== "function") return;
+    if (ytPlayer.getPlayerState() !== 1) showPlayButton();
+  }, 3500);
+
+  if (ytLoopTimer) clearInterval(ytLoopTimer);
+  ytLoopTimer = window.setInterval(function () {
+    if (!ytPlayer || typeof ytPlayer.getCurrentTime !== "function") return;
+    const t = ytPlayer.getCurrentTime();
+    const pastEnd = c.video.end != null && t >= c.video.end;
+    if (t < c.video.start || pastEnd) {
+      ytPlayer.seekTo(c.video.start, true);
+      if (typeof ytPlayer.playVideo === "function") ytPlayer.playVideo();
+    }
+  }, 250);
+}
+
+function setupVideo(c) {
+  if (!c || !c.video) return;
+  pendingVideo = c;
+  if (!window.YT || typeof window.YT.Player !== "function") return;
+  initYouTube(c);
+}
+
+window.onYouTubeIframeAPIReady = function () {
+  if (pendingVideo) initYouTube(pendingVideo);
+};
 
 /* ----------------------------- screens ---------------------------------- */
 function showScreen(id) {
   document.querySelectorAll(".screen").forEach((s) => {
     s.classList.toggle("is-active", s.id === id);
   });
+  document.body.dataset.view = id;
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
@@ -775,12 +1057,38 @@ function buildTicks() {
   });
 }
 
+/* ----------------------------- contents --------------------------------- */
+function buildContents() {
+  const list = $("#contentsList");
+  if (!list) return;
+  let html = "";
+  campaigns.forEach((c, i) => {
+    html +=
+      '<li>' +
+        '<button class="contents__item" type="button" data-index="' + i + '">' +
+          '<span class="contents__no">' + String(i + 1).padStart(2, "0") + '</span>' +
+          '<span class="contents__name">' + escapeHtml(c.name) + '</span>' +
+          '<span class="contents__meta">' + escapeHtml(c.brand) + ' / ' + escapeHtml(c.year) + '</span>' +
+        '</button>' +
+      '</li>';
+  });
+  list.innerHTML = html;
+  list.addEventListener("click", (e) => {
+    const btn = e.target.closest(".contents__item");
+    if (!btn) return;
+    currentIndex = parseInt(btn.dataset.index, 10);
+    showScreen("campaign");
+    renderCampaign("next");
+  });
+}
+
 /* ----------------------------- render ----------------------------------- */
-function renderExhibit(direction) {
+function renderCampaign(direction) {
+  destroyVideo();
   const c = campaigns[currentIndex];
   const total = campaigns.length;
   const img = c.image || makePlaceholderImage(c);
-  const alt = escapeHtml(c.name) + ", " + escapeHtml(c.brand) + ", exhibit image";
+  const alt = escapeHtml(c.name) + ", " + escapeHtml(c.brand) + ", campaign image";
 
   const lenses = [
     ["Psychology", c.psychology],
@@ -790,47 +1098,90 @@ function renderExhibit(direction) {
     ["Execution", c.execution]
   ];
 
-  let lensHtml = "";
-  lenses.forEach((lens, i) => {
-    lensHtml +=
-      '<div class="lens">' +
-        '<div class="lens__label">' +
-          '<span class="lens__no">' + String(i + 1).padStart(2, "0") + '</span>' +
-          '<h3 class="lens__name">' + escapeHtml(lens[0]) + '</h3>' +
-        '</div>' +
-        '<p class="lens__text">' + escapeHtml(lens[1]) + '</p>' +
-      '</div>';
+  let sectionHtml = "";
+  lenses.forEach((lens) => {
+    sectionHtml +=
+      '<section class="article__section">' +
+        '<h3 class="article__heading">' + escapeHtml(lens[0]) + '</h3>' +
+        '<p>' + escapeHtml(lens[1]) + '</p>' +
+      '</section>';
   });
 
-  $("#exhibitInner").innerHTML =
-    '<div class="exhibit__head">' +
+  const isLast = currentIndex === total - 1;
+  const prevName = currentIndex > 0 ? campaigns[currentIndex - 1].name : "";
+  const nextName = isLast ? "The Museum Exit" : campaigns[currentIndex + 1].name;
+  const nextLabel = isLast ? "Finish" : "Next Campaign";
+
+  const nextTeaser = isLast ? "" :
+    '<button id="nextTeaser" class="next-campaign" type="button">' +
+      '<span class="eyebrow">Next Campaign</span>' +
+      '<span class="next-campaign__name">' + escapeHtml(campaigns[currentIndex + 1].name) + '</span>' +
+    '</button>';
+
+  $("#campaignInner").innerHTML =
+    '<div class="campaign__head">' +
       '<div>' +
         '<p class="eyebrow">' + escapeHtml(c.brand) + '</p>' +
         '<h2 class="display-sm">' + escapeHtml(c.name) + '</h2>' +
       '</div>' +
-      '<span class="exhibit__year">' + escapeHtml(c.year) + '</span>' +
+      '<span class="campaign__year">' + escapeHtml(c.year) + '</span>' +
     '</div>' +
-    '<figure class="exhibit__media">' +
-      '<img src="' + img + '" alt="' + alt + '">' +
-      '<figcaption class="exhibit__caption">' +
-        '<span>' + escapeHtml(c.name) + '</span>' +
-        '<span>Campaign Archive</span>' +
-      '</figcaption>' +
-    '</figure>' +
-    '<p class="exhibit__lede">' + escapeHtml(c.summary) + '</p>' +
-    '<div class="lenses">' + lensHtml + '</div>' +
+    '<p class="article__lede">' + escapeHtml(c.summary) + '</p>' +
+    '<div class="campaign__stage">' +
+      '<div class="campaign__rail campaign__rail--left">' +
+        '<button id="prevBtn" class="rail-btn" type="button"' + (currentIndex === 0 ? ' disabled' : '') + '>' +
+          '<span class="rail-btn__label">Previous</span>' +
+          '<span class="rail-btn__name">' + escapeHtml(prevName) + '</span>' +
+        '</button>' +
+      '</div>' +
+      '<figure class="campaign__media">' +
+        (c.video
+          ? '<div id="ytPlayer" class="yt-player"></div>' +
+            '<button id="ytPlay" class="btn yt-play" type="button">Play the clip</button>'
+          : '<img src="' + img + '" alt="' + alt + '">') +
+        '<figcaption class="campaign__caption">' +
+          '<span>' + escapeHtml(c.name) + '</span>' +
+          '<span>Campaign Archive</span>' +
+        '</figcaption>' +
+      '</figure>' +
+      '<div class="campaign__rail campaign__rail--right">' +
+        '<button id="nextBtn" class="rail-btn rail-btn--next" type="button">' +
+          '<span class="rail-btn__label">' + nextLabel + '</span>' +
+          '<span class="rail-btn__name">' + escapeHtml(nextName) + '</span>' +
+        '</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="article">' +
+      sectionHtml +
+    '</div>' +
     '<div class="takeaway">' +
-      '<p class="eyebrow">Key Takeaway</p>' +
-      '<p>' + escapeHtml(c.keyTakeaway) + '</p>' +
-    '</div>';
+      '<p class="eyebrow">Important Insights</p>' +
+      '<p>' + escapeHtml(c.importantInsights) + '</p>' +
+    '</div>' +
+    nextTeaser;
 
-  const inner = $("#exhibitInner");
+  $("#prevBtn").addEventListener("click", prev);
+  $("#nextBtn").addEventListener("click", next);
+  const teaser = $("#nextTeaser");
+  if (teaser) teaser.addEventListener("click", next);
+
+  const mediaImg = document.querySelector("#campaignInner .campaign__media img");
+  if (mediaImg) {
+    mediaImg.addEventListener("error", () => {
+      mediaImg.src = makePlaceholderImage(c);
+      mediaImg.alt = escapeHtml(c.name) + ", " + escapeHtml(c.brand) + ", campaign image placeholder";
+    }, { once: true });
+  }
+
+  if (c.video) setupVideo(c);
+
+  const inner = $("#campaignInner");
   inner.classList.remove("from-left", "from-right");
   if (direction === "next") inner.classList.add("from-right");
   if (direction === "prev") inner.classList.add("from-left");
 
   $("#counter").textContent =
-    "Exhibit " + String(currentIndex + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0");
+    "Campaign " + String(currentIndex + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0");
 
   const pct = Math.round(((currentIndex + 1) / total) * 100);
   $("#progressFill").style.width = pct + "%";
@@ -841,11 +1192,6 @@ function renderExhibit(direction) {
     tick.classList.toggle("is-done", i < currentIndex);
     tick.setAttribute("aria-selected", i === currentIndex ? "true" : "false");
   });
-
-  const prev = $("#prevBtn");
-  const next = $("#nextBtn");
-  prev.disabled = currentIndex === 0;
-  next.textContent = currentIndex === total - 1 ? "Finish" : "Next";
 }
 
 /* ----------------------------- navigation ------------------------------- */
@@ -853,7 +1199,8 @@ function goTo(index, direction) {
   if (index < 0 || index >= campaigns.length) return;
   if (direction === undefined) direction = index > currentIndex ? "next" : "prev";
   currentIndex = index;
-  renderExhibit(direction);
+  renderCampaign(direction);
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
 
 function next() {
@@ -871,8 +1218,8 @@ function startJourney() {
   window.setTimeout(() => {
     loader.classList.remove("is-active");
     currentIndex = 0;
-    showScreen("exhibit");
-    renderExhibit("next");
+    showScreen("campaign");
+    renderCampaign("next");
   }, 1500);
 }
 
@@ -887,11 +1234,9 @@ $("#brandHome").addEventListener("click", (e) => {
   e.preventDefault();
   showScreen("landing");
 });
-$("#nextBtn").addEventListener("click", next);
-$("#prevBtn").addEventListener("click", prev);
 
 document.addEventListener("keydown", (e) => {
-  if (!$("#exhibit").classList.contains("is-active")) return;
+  if (!$("#campaign").classList.contains("is-active")) return;
   const tag = (e.target.tagName || "").toLowerCase();
   if (tag === "input" || tag === "textarea") return;
   if (e.key === "ArrowRight") { e.preventDefault(); next(); }
@@ -900,6 +1245,7 @@ document.addEventListener("keydown", (e) => {
 
 /* ----------------------------- init ------------------------------------- */
 buildTicks();
+buildContents();
 </script>
 </body>
 </html>
