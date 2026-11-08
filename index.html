@@ -283,7 +283,7 @@
     text-align: right;
   }
 
-  /* ---------- campaign progress ---------- */
+  /* ---------- campaign counter ---------- */
   .counter {
     font-family: var(--caps);
     font-size: 0.72rem;
@@ -291,36 +291,6 @@
     text-transform: uppercase;
     color: var(--ink);
   }
-  .progress {
-    height: 1px;
-    background: var(--line);
-    margin: 18px 0 14px;
-  }
-  .progress__fill {
-    height: 1px;
-    width: 10%;
-    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .ticks {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-  .tick {
-    width: 6px;
-    height: 6px;
-    padding: 0;
-    border: 1px solid var(--line-strong);
-    border-radius: 50%;
-    background: transparent;
-    cursor: pointer;
-    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-  }
-  .tick:hover { border-color: var(--ink); transform: scale(1.3); }
-  .tick:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .tick.is-done { background: rgba(109, 31, 46, 0.40); border-color: rgba(109, 31, 46, 0.40); }
-  .tick.is-current { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
 
   /* ---------- campaign body ---------- */
   .campaign__inner { animation: rise 0.55s ease both; }
@@ -706,11 +676,6 @@
   <!-- ============ CAMPAIGN ============ -->
   <section id="campaign" class="screen" aria-label="Campaign">
     <div class="wrap">
-      <div class="progress" role="progressbar" aria-label="Journey progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" id="progressBar">
-        <div class="progress__fill" id="progressFill"></div>
-      </div>
-      <div class="ticks" id="dots" role="tablist" aria-label="Select an campaign"></div>
-
       <div id="campaignInner" class="campaign__inner"></div>
     </div>
   </section>
@@ -758,6 +723,7 @@ const campaigns = [
     brand: "Heinz",
     year: "2023",
     image: "images/campaign1.jpg",
+    video: { id: "cnS76ML_Jmg", start: 0, end: 64 },
     summary: "Heinz fought ketchup fraud in Turkish street food restaurants by printing a stripe of its exact shade of red around the bottle label, turning the packaging itself into a proof of authenticity.",
     psychology: "The campaign turns every diner into a detective. A simple at-the-table test invites curiosity and a small sense of satisfaction at spotting a fake, so checking the bottle almost becomes a game. It also taps a universal instinct: nobody likes being cheated, even over a condiment, and Heinz channels that irritation into loyalty with a clear message that it is on the customer's side. Once restaurant owners know diners can check, the risk of being publicly caught adds a layer of accountability, putting consumer scrutiny to work instead of relying only on enforcement. Talking about imposters also sends a quiet signal of superiority, because it implies Heinz is the brand worth faking.",
     storytelling: "The narrative follows a classic hero and villain structure. Authentic Heinz is the standard, imposter ketchup is the villain, and the customer, armed with the Label of Truth, is the hero. Humor does the heavy lifting, and phrases like ketchup fraud and Label of Truth treat a trivial problem with mock seriousness, which is exactly what makes the story fun to repeat and share. Best of all, the story lives inside the product itself, so the bottle tells the whole story without an ad.",
@@ -772,7 +738,7 @@ const campaigns = [
     brand: "Orphea",
     year: "2013",
     image: "images/campaign2.jpg",
-    video: { id: "xgvXZsgr9IQ", start: 48, end: 55 },
+    video: { id: "kZ6Wka4eu6E", start: 0, end: 82 },
     summary: "Orphea turned a Milan billboard into a working insect trap in 2013, letting thousands of real insects slowly draw the spray and prove the product on the street.",
     psychology: "The campaign leans on a long-standing idea in persuasion: visible evidence often lands harder than a verbal claim. A line like kills insects fast invites skepticism, while thousands of real trapped insects do not argue, they just sit there looking like proof. It also uses curiosity and anticipation, because a billboard that changes every day gives passers-by a reason to look again, which is rare for outdoor media people usually tune out. There is a visceral layer too: insects trigger mild disgust, and showing that disgust on a giant scale reminds viewers of the problem the product solves and makes the solution feel urgent. The result is a wordless association between brand and action, where can plus trapped bugs equals effective spray.",
     storytelling: "Most ads tell a story in 30 seconds or a single frame, but the Billboard Trap tells its story over days. The narrative has a clear arc: an ordinary billboard, a mystery as dots begin to appear, and a reveal as the spray takes shape in insects. The insects themselves are the storytellers, with no copy, no actor, and no voiceover doing the persuading, which makes the idea instantly understandable across languages. The time-lapse case film then compresses days of slow change into a satisfying minute of transformation, exactly the kind of content people pass around online.",
@@ -787,7 +753,7 @@ const campaigns = [
     brand: "IKEA Canada",
     year: "2017",
     image: "images/campaign3.jpg",
-    video: { id: "MU3CCP7X9NY", start: 32, end: 88 },
+    video: { id: "MU3CCP7X9NY", start: 0, end: 88 },
     summary: "IKEA Canada turned the recipe itself into a cooking tool: illustrated, to-scale instructions printed in edible ink on parchment paper that you fill with ingredients, roll up and bake.",
     psychology: "The campaign targets a real barrier: cooking anxiety. Recipes ask people to measure, interpret and sequence steps, and each one is a chance to feel like you are getting it wrong, so Cook This Page removes most of those decisions by having the drawing show where things go and roughly how much to use. That reduces cognitive load, a well-established lever in behavior design, because when a task feels easier people are more willing to try it. It also creates a small sense of achievement, since people follow the page, bake it and end up with a real meal they made themselves, and the brand gets linked to that feeling of competence. There is a reciprocity effect too, because IKEA gave people something genuinely useful and free rather than just an ad. These are explanations of why the idea could work, and IKEA has not published research showing the campaign reduced cooking anxiety.",
     storytelling: "The storytelling is almost entirely visual. Instead of a narrative ad, the brand tells its story through the object itself, in a format people already associate with IKEA: friendly illustrations, minimal words and step-by-step simplicity. That is the clever part. IKEA's assembly instructions are part of popular culture, often the butt of jokes, and here the brand takes that recognizable style and applies it to food, turning a familiar visual language into a delightful surprise. The story then continues in the user's own kitchen, where each person who cooks a page creates a little before-and-after moment, from a blank illustrated sheet to a finished dish. This is a clear case of brand asset transfer: instead of inventing a new style, IKEA moved its existing visual identity into a new category, so the page communicated the brand without the logo doing all the work.",
@@ -817,6 +783,7 @@ const campaigns = [
     brand: "Cadbury Gems",
     year: "2012",
     image: "images/campaign5.jpg",
+    video: { id: "ELLdITfDo1E", start: 0, end: 65 },
     summary: "In 2012 Cadbury Gems convinced grown-ups they were never too old for colourful chocolate buttons with the Museum film, in which a single blue Gem brings down a whole sculpture.",
     psychology: "The campaign's core psychological move is giving permission. Many adults still enjoy childish treats but feel faintly embarrassed about it, and Raho Umarless reframes that impulse as something to embrace rather than hide. It taps nostalgia too, because almost everyone who grew up with Gems remembers having a favourite colour, and by building the film around that specific shared memory the ad triggers instant recognition. The film also plays on the tension between self-control and desire: a museum is a place of restraint where you look but never touch, and watching a respectable adult lose that battle over a single chocolate button is funny because most viewers have felt the same pull. Finally, there is a cue of harmless rebellion, since the man knowingly breaks an adult rule and chooses the treat anyway, which makes the brand feel like a small, safe act of defiance against grown-up seriousness. These are explanations of why the ad could resonate, not findings from published consumer research.",
     storytelling: "The story is built on contrast. The setting is hushed, refined and adult, while the temptation is bright, playful and childish, and putting the two side by side creates the comedy before anything even happens. The pacing is patient, as the camera lingers while the man notices the sculpture, hesitates and finally reaches out, so tension builds steadily. The payoff, a single tug that brings the whole artwork down, is a classic comic escalation of a tiny action with a huge consequence. The ending completes the character arc: caught in the act, the man does not apologise but eats the Gem with a sheepish grin, the most childlike response possible, and the line No umar for favourite colour lands as the punchline. The story needs almost no dialogue, and its humour is visual and universal, which makes it easy to understand and remember.",
@@ -831,6 +798,7 @@ const campaigns = [
     brand: "Airtel",
     year: "2002",
     image: "images/campaign6.jpg",
+    video: { id: "SuAe2lziMqI", start: 0, end: 63 },
     summary: "In 2002 Airtel signed A.R. Rahman and asked him for a tune, creating one of India's most recognisable pieces of sonic branding, a short melody that went from a TV ad to millions of phones and caller tunes.",
     psychology: "Sound is one of the most powerful memory cues a brand can own. A short, distinctive melody, heard again and again, becomes linked to a brand so tightly that hearing it brings the brand to mind without any logo, and Airtel's tune is a textbook case of this kind of sonic association. The ringtone strategy multiplied that effect, because every time a customer's phone rang with the Airtel tune the brand was being advertised in public by its own users, so people were not just hearing the ad but choosing to carry it around. Rahman also brought credibility and affection, since by 2002 he was one of India's most celebrated composers, and his association lent the brand creativity, warmth and national pride. Finally, the melody itself carries emotion, gentle and slightly wistful rather than loud and salesy, which helped it outlive the ad that introduced it. These are explanations of why the tune could have worked, not findings from published research on the campaign.",
     storytelling: "The film's story is a neat dramatisation of the product benefit. A tune is born in a moment, at an airport, and survives because a mobile phone carries it to the studio and on to the concert, so the phone is not a gadget in the story but what lets creativity travel. The narrative also shows Rahman's process, as viewers watch a famous musician improvise, record and collaborate with strangers, which turns the ad into a small behind-the-scenes music story rather than a product demonstration. The arc moves from intimate to grand: a single harmonica for one crying child, then street musicians, then a full concert. That build mirrors the tune's own journey from a small idea to something enormous and gives the film a satisfying emotional payoff. Rahman described it as the first ad film with so many different genres of music in it, and that variety is part of the story of one melody carried across styles and places.",
@@ -845,6 +813,7 @@ const campaigns = [
     brand: "The Whole Truth",
     year: "2025",
     image: "images/campaign7.jpg",
+    video: { id: "Z6dHLGa5Wuw", start: 0, end: 60 },
     summary: "In September 2025 The Whole Truth parodied a famous Bollywood song to ask what is really inside the protein tubs Indians buy, building a category-challenger position on radical ingredient transparency.",
     psychology: "The campaign activates a doubt many consumers already have. Protein powders are often sold in big, intimidating tubs covered in technical claims, and a lot of buyers quietly wonder what is in them, so by asking the question out loud the ad validates that suspicion rather than creating it. That doubt had real grounding: a 2024 study published in Medicine, the Citizens Protein Project, analysed 36 protein supplements sold in India and found that 25 of them, or 69.4 percent, contained less protein than advertised, five were contaminated with aflatoxins, and the researchers also found heavy metals and raised concerns about possible amino-spiking in certain products, though the study did not prove widespread deliberate amino-spiking and its findings should not be generalised to every protein brand in India. Once it has raised the worry, the ad resolves it, and the founder's appearance offers a trusted human voice with a simple rule of thumb that too many labels is a warning sign. Humour lowers resistance too, because a parody of a famous song makes a potentially preachy message about additives feel playful, so viewers are more likely to watch, share and remember it. These are explanations of why the campaign could work, not findings from published research on it.",
     storytelling: "The choice of song was not incidental. Choli Ke Peeche Kya Hai is built around a teasing question about what lies behind something, and the parody keeps the familiar musical hook and the question but changes its meaning: instead of what is behind the clothing, it asks what is behind the protein powder, borrowing cultural recognition to introduce an entirely new consumer question. The visuals exaggerate the category's clichés, with bodybuilders bursting out of a giant tub playing up the muscle-gain imagery protein brands usually rely on, and that is the setup. The founder is the punchline. When Mehta steps in, the tone shifts from spectacle to plain talk, and the brand's promise lands as the honest answer to the song's question. Ending on the founder also reinforces the brand's personal, no-nonsense voice, which recurs across its advertising.",
@@ -859,6 +828,7 @@ const campaigns = [
     brand: "Anu Merton",
     year: "2020",
     image: "images/campaign8.jpg",
+    video: { id: "kD-PBxw5-XY", start: 0, end: 33 },
     summary: "Anu Merton built her jewellery brand around the founder herself, and the Travelling Dukaan, a recurring series in which she roams a city's jewellery lanes and sells her finds through Instagram stories, is its flagship execution.",
     psychology: "The brand's core lever is intimacy. Anu Merton handles much of the social media herself, and in her Patna edition post she mentioned she was still solo-handling social media and customer queries, so the voice is casual and personal and following the brand feels like following a friend with excellent taste rather than a company. The Nod described this as an anti-perfection, so-casual-it-is-cool approach, while noting it is carefully thought out and draws on her years as a stylist, which is a key insight: the effortlessness is designed, and imperfect, lived-in visuals feel more trustworthy than a glossy campaign because they look like real life. The Travelling Dukaan adds the thrill of discovery, as followers watch her hunt through small shops and trinket-laden lanes and then see the finds appear one by one. Scarcity sharpens the urge to act, and it is genuine rather than manufactured, since many Dukaan pieces are antiques or one-offs that cannot be remade, unlike a countdown timer, and pieces that can be remade carried a stated four-to-five-week turnaround. Curation works as a trust mechanism too, because customers are outsourcing discovery to someone whose taste they admire, so the founder's eye is part of what is being sold. These are explanations of why the model could work, not findings from published research on the brand.",
     storytelling: "The brand rarely presents a piece as just a product. Merton writes long, personal blog posts for each edition, mixing travel diary, memory and opinion, and the Patna edition, for example, is a love letter to Bihar, its contradictions and her pride in being a Bihari woman. Her design inspiration feeds the same storytelling, since she has said that poetry, Faiz and Rumi in particular, along with nature, people and movement, often spark new pieces, and that the everyday beauty of small-town India shapes her eye. The Dukaan format is a story in itself: each edition has a setting (a city), a narrator (Anu) and a quest (finding beautiful things in small shops), told in real time through stories, so followers are not just shopping, they are travelling along.",
@@ -873,6 +843,7 @@ const campaigns = [
     brand: "Kama Ayurveda",
     year: "2026",
     image: "images/campaign9.jpg",
+    video: { id: "PZwMUV_0DbI", start: 0, end: 30 },
     summary: "For Diwali 2026 Kama Ayurveda returned with its festive platform The Royal Art of Gifting, inspired by Rajasthani Leheriya and by Ayurvedic beauty rituals passed down through generations, and led by ambassador Princess Gauravi Kumari of Jaipur.",
     psychology: "The campaign's main lever is nostalgia. Many Indian consumers grew up with a grandmother or mother oiling their hair or mixing home remedies, so framing Ayurvedic products as continuations of those family rituals turns a purchase into an act of keeping a tradition alive. Gauravi Kumari has spoken in these terms herself, describing in her launch interview with The Nod the oils and remedies of her childhood as rituals of care and connection passed down through generations, and saying modern brands let her honour that legacy while gaining convenience, which gives the theme a personal anchor. Royal association adds aspiration, since a princess of Jaipur signals refinement, heritage and exclusivity that helps justify premium pricing, yet she is also a young woman in her twenties, which makes the heritage feel contemporary rather than dusty. The campaign also trades in cultural capital, because Leheriya, Jaipur's royal heritage and Ayurveda are not just decoration but lend the products meaning that supports a luxury price point. Gifting psychology matters too: at Diwali people want gifts that feel meaningful rather than generic, and a beautifully packaged set tied to tradition lets the giver signal thoughtfulness and good taste. These are explanations of why the campaign could work, not findings from published research on it.",
     storytelling: "The narrative centres on inheritance. Beauty rituals are presented as something passed from one generation of women to the next, with Kama Ayurveda as the modern custodian of that knowledge, and the brand's social content builds on this idea of care handed down within families. Leheriya is a fitting visual metaphor: historically it is a Rajasthani resist-dye technique in which fabric is rolled diagonally, tied and dyed to produce wave-like diagonal stripes, and the name comes from leher, meaning wave. Its main centres include Jaipur, Jodhpur and Udaipur, it has traditionally been used for turbans, saris and odhnis, and royal houses once had their own signature leheriya colours and patterns, a link that suits a royal ambassador. Reading the waves as traditions flowing between generations is the campaign's interpretation rather than part of the craft's history. Hair oiling is a natural hero ritual for this story, since it is one of the most widely shared family beauty memories in India, and Gauravi Kumari told Esquire India that she relies on the brand's Bringaras scalp and hair oil, which the Diwali edition of the Bliss Box includes as a gift with larger orders.",
@@ -887,6 +858,7 @@ const campaigns = [
     brand: "PVR INOX",
     year: "2023",
     image: "images/campaign10.jpg",
+    video: { id: "uGGWoqhN6AY", start: 0, end: 35 },
     summary: "In April 2023 PVR INOX sold trailers for 1 rupee, inviting audiences to a 30-minute big-screen show of more than ten upcoming film trailers, the cinema equivalent of a free sample.",
     psychology: "The 1 rupee price is the core lever. It removes nearly all financial risk, so the decision to go becomes easy, and a token price also works differently from free because it creates a real ticket and a commitment to show up while still feeling like a bargain. The idea borrows from product sampling, a staple of FMCG marketing, and Business Today noted that PVR INOX had borrowed a page from the FMCG playbook of offering samples, with the same logic that letting people try the experience means some will come back for the full product. It also plays on habit, because after the pandemic cinema-going had become less routine for many people, and a short, cheap visit reintroduces the ritual of the lobby, the big screen, the sound and the shared audience to occasional and potential moviegoers without asking for a big commitment. Finally, trailers create anticipation: each one is designed to make viewers want the full film, and showing ten or more back to back multiplies that effect, which is why PVR INOX positioned the show as a way to boost advance bookings. These are explanations of why the activation could work, not findings from published consumer research.",
     storytelling: "The campaign's strongest story is a transformation: trailers move from advertising to entertainment. Normally they are promotional filler before a feature film, but here they become the feature, a standalone show audiences pay to see, so PVR INOX effectively monetised the audience's curiosity about upcoming releases even if the ticket price itself earned almost nothing. The show itself is a fast, curated sequence of genres, languages and moods, which the brand promoted as a way to experience a range of emotions in half an hour, and co-CEO Gautam Dutta said the chain wanted a mix of regional, Hollywood and Bollywood content tailored to each audience's language and tastes. The framing is snackable entertainment, with Dutta describing the show as a short, power-packed offering on the big screen, which positions a visit to the cinema as something you can fit into a busy day rather than only a three-hour commitment. The curation also tells a story about PVR INOX itself: a chain that knows what is coming next across Bollywood, Hollywood and regional cinema, and wants you to see it first.",
@@ -1041,22 +1013,6 @@ function showScreen(id) {
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
-/* ----------------------------- ticks ------------------------------------ */
-function buildTicks() {
-  const ticks = $("#dots");
-  let html = "";
-  campaigns.forEach((c, i) => {
-    html += '<button class="tick" type="button" role="tab" data-index="' + i +
-            '" aria-label="Go to ' + escapeHtml(c.name) + '"></button>';
-  });
-  ticks.innerHTML = html;
-  ticks.addEventListener("click", (e) => {
-    const btn = e.target.closest(".tick");
-    if (!btn) return;
-    goTo(parseInt(btn.dataset.index, 10));
-  });
-}
-
 /* ----------------------------- contents --------------------------------- */
 function buildContents() {
   const list = $("#contentsList");
@@ -1182,16 +1138,6 @@ function renderCampaign(direction) {
 
   $("#counter").textContent =
     "Campaign " + String(currentIndex + 1).padStart(2, "0") + " / " + String(total).padStart(2, "0");
-
-  const pct = Math.round(((currentIndex + 1) / total) * 100);
-  $("#progressFill").style.width = pct + "%";
-  $("#progressBar").setAttribute("aria-valuenow", pct);
-
-  document.querySelectorAll(".tick").forEach((tick, i) => {
-    tick.classList.toggle("is-current", i === currentIndex);
-    tick.classList.toggle("is-done", i < currentIndex);
-    tick.setAttribute("aria-selected", i === currentIndex ? "true" : "false");
-  });
 }
 
 /* ----------------------------- navigation ------------------------------- */
@@ -1244,7 +1190,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 /* ----------------------------- init ------------------------------------- */
-buildTicks();
 buildContents();
 </script>
 </body>
